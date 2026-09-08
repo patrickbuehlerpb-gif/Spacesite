@@ -1,0 +1,106 @@
+import { registerStrings } from '../../core/i18n';
+
+registerStrings('home', {
+  kicker: 'Eine Reise durch echte Daten des Universums',
+  claim: '109’400 Sterne · 43’000 Galaxien · tausende fremde Welten – alles echt, alles interaktiv.',
+  ctaStart: 'Reise beginnen',
+  ctaLive: 'Live aus dem All',
+  scroll: 'Scrollen',
+  skyNote: 'Der echte Himmel · 109’400 Sterne · HYG v4.1 (Hipparcos)',
+  skyHint: 'Sternnamen antippen für Details',
+
+  // ticker
+  tickIss: 'ISS · {v} km/h · {alt} km hoch · über {lat} {lon}',
+  tickAstro: '{n} Menschen im All',
+  tickLaunch: 'Nächster Start: {name} in {t}',
+  tickEarth: 'Seit du hier bist: Erde {km} km weiter um die Sonne',
+  tickSrc: 'Live: wheretheiss.at · Launch Library 2',
+  stale: 'zwischengespeicherte Daten',
+
+  // chapter menu
+  menuKicker: 'Sieben Kapitel',
+  menuTitle: 'Wähle deinen <em>Weg</em>',
+  menuSub: 'Jedes Kapitel ist ein eigener Raum aus vermessenen Daten – keine Illustrationen, keine Schätzungen, wo Messungen existieren.',
+  chapterN: 'Kapitel',
+  'num.stars': '109’400 Sterne',
+  'num.solarsystem': '8 Planeten · 5 Zwergplaneten',
+  'num.exoplanets': 'Tausende Exoplaneten',
+  'num.galaxies': '43’000 Galaxien',
+  'num.zoom': '10²⁷ Meter',
+  'num.timeline': '13,8 Mrd. Jahre',
+  'num.live': 'Live',
+
+  // facts
+  factsKicker: 'Wusstest du?',
+  factsTitle: 'Vier Zahlen, die <em>bleiben</em>',
+  'fact.sun.l': 'braucht das Sonnenlicht bis zur Erde',
+  'fact.sun.s': 'Die Sonne, die du siehst, ist immer ein paar Minuten alt.',
+  'fact.mw.n': '100–400 Mrd.',
+  'fact.mw.l': 'Sterne in der Milchstrasse',
+  'fact.mw.s': 'Niemand hat sie gezählt – die Schätzung folgt aus der Masse der Galaxie.',
+  'fact.m31.l': 'bis zur Andromeda-Galaxie',
+  'fact.m31.s': 'Sie nähert sich mit 110 km/s. In rund 4,5 Mrd. Jahren verschmelzen beide Galaxien.',
+  'fact.uni.l': 'Durchmesser des beobachtbaren Universums',
+  'fact.uni.s': 'Das älteste Licht ist 13,8 Mrd. Jahre unterwegs – der Raum dehnte sich derweil weiter aus.',
+  factsSrc: 'Quellen: NASA/JPL, ESA, Planck 2018, van der Marel et al. 2012',
+
+  // footer
+  footData: 'Daten: HYG v4.1 (Hipparcos) · 2MASS Redshift Survey · Open Exoplanet Catalogue · NASA/JPL · NOAA SWPC · wheretheiss.at · Launch Library 2',
+  footCredits: 'Alle Quellen & Lizenzen',
+  footMade: 'Rendering: three.js · Kein Backend, keine Cookies.',
+
+  // star info card
+  visit: 'Hinfliegen',
+  bv: 'Farbindex B–V',
+  starSrc: 'Daten: HYG v4.1 / Hipparcos',
+  unknown: 'unbekannt',
+}, {
+  kicker: 'A journey through real data of the universe',
+  claim: '109,400 stars · 43,000 galaxies · thousands of alien worlds – all real, all interactive.',
+  ctaStart: 'Begin the journey',
+  ctaLive: 'Live from space',
+  scroll: 'Scroll',
+  skyNote: 'The real sky · 109,400 stars · HYG v4.1 (Hipparcos)',
+  skyHint: 'Tap a star name for details',
+
+  tickIss: 'ISS · {v} km/h · {alt} km up · above {lat} {lon}',
+  tickAstro: '{n} people in space',
+  tickLaunch: 'Next launch: {name} in {t}',
+  tickEarth: 'Since you arrived: Earth moved {km} km around the Sun',
+  tickSrc: 'Live: wheretheiss.at · Launch Library 2',
+  stale: 'cached data',
+
+  menuKicker: 'Seven chapters',
+  menuTitle: 'Choose your <em>path</em>',
+  menuSub: 'Every chapter is its own space built from measured data – no illustrations, no guesses where measurements exist.',
+  chapterN: 'Chapter',
+  'num.stars': '109,400 stars',
+  'num.solarsystem': '8 planets · 5 dwarf planets',
+  'num.exoplanets': 'Thousands of exoplanets',
+  'num.galaxies': '43,000 galaxies',
+  'num.zoom': '10²⁷ metres',
+  'num.timeline': '13.8 billion years',
+  'num.live': 'Live',
+
+  factsKicker: 'Did you know?',
+  factsTitle: 'Four numbers that <em>stay</em>',
+  'fact.sun.l': 'for sunlight to reach Earth',
+  'fact.sun.s': 'The Sun you see is always a few minutes old.',
+  'fact.mw.n': '100–400 billion',
+  'fact.mw.l': 'stars in the Milky Way',
+  'fact.mw.s': 'Nobody has counted them – the estimate follows from the mass of the galaxy.',
+  'fact.m31.l': 'to the Andromeda galaxy',
+  'fact.m31.s': 'It approaches at 110 km/s. In about 4.5 billion years the two galaxies merge.',
+  'fact.uni.l': 'diameter of the observable universe',
+  'fact.uni.s': 'The oldest light has travelled for 13.8 billion years – while space kept expanding.',
+  factsSrc: 'Sources: NASA/JPL, ESA, Planck 2018, van der Marel et al. 2012',
+
+  footData: 'Data: HYG v4.1 (Hipparcos) · 2MASS Redshift Survey · Open Exoplanet Catalogue · NASA/JPL · NOAA SWPC · wheretheiss.at · Launch Library 2',
+  footCredits: 'All sources & licences',
+  footMade: 'Rendering: three.js · No backend, no cookies.',
+
+  visit: 'Fly there',
+  bv: 'Colour index B–V',
+  starSrc: 'Data: HYG v4.1 / Hipparcos',
+  unknown: 'unknown',
+});

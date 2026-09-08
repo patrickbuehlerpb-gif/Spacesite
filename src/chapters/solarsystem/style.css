@@ -1,0 +1,120 @@
+/* Solar system chapter – every selector prefixed with .ch-solarsystem */
+
+.ch-solarsystem .ss-catch { position: absolute; inset: 0; touch-action: none; z-index: 1; cursor: grab; }
+.ch-solarsystem .ss-catch.drag { cursor: grabbing; }
+.ch-solarsystem > .panel, .ch-solarsystem > .info-card, .ch-solarsystem > .toast { z-index: 3; }
+.ch-solarsystem > .intro { z-index: 10; }
+.ch-solarsystem .toast em { color: var(--gold-2); font-style: italic; font-family: var(--font-display); font-size: 15px; }
+
+/* 3D labels (CSS2D) --------------------------------------------------------- */
+.ch-solarsystem .ss-lbl {
+  appearance: none; border: 0; background: transparent; padding: 2px 6px; margin: 0;
+  font: inherit; font-size: 12px; letter-spacing: 0.08em; color: var(--text);
+  text-shadow: 0 0 6px rgba(0,0,0,0.95), 0 0 2px rgba(0,0,0,1);
+  white-space: nowrap; cursor: pointer; border-radius: 6px;
+  transition: color var(--t-fast), opacity var(--t-med);
+}
+.ch-solarsystem .ss-lbl:hover { color: var(--cyan-2); }
+.ch-solarsystem .ss-lbl.dim { color: var(--text-2); font-size: 11px; }
+.ch-solarsystem .ss-lbl.gold { color: var(--gold-2); }
+.ch-solarsystem .ss-lbl.belt { color: var(--muted); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; }
+.ch-solarsystem .ss-lbl.belt:hover { color: var(--text); }
+.ch-solarsystem .ss-lbl.probe { color: var(--cyan-2); font-size: 11px; }
+.ch-solarsystem .ss-lbl .sub { display: block; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+
+/* Body list ------------------------------------------------------------------ */
+.ch-solarsystem .ss-bodies { width: 230px; padding: 12px 12px 10px; display: flex; flex-direction: column; gap: 8px; }
+.ch-solarsystem .ss-bodies .head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ch-solarsystem .ss-bodies .panel-title { margin: 0; }
+.ch-solarsystem .ss-list { display: flex; flex-direction: column; gap: 1px; max-height: calc(100vh - 470px); min-height: 120px; overflow-y: auto; margin: 0 -4px; padding: 0 4px; }
+.ch-solarsystem .ss-item {
+  appearance: none; border: 0; background: transparent; color: var(--text-2);
+  display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+  padding: 5px 8px; border-radius: var(--radius-sm); font: inherit; font-size: 13px; cursor: pointer;
+  transition: background var(--t-fast), color var(--t-fast);
+}
+.ch-solarsystem .ss-item:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+.ch-solarsystem .ss-item.on { background: rgba(242,196,109,0.12); color: var(--gold-2); }
+.ch-solarsystem .ss-item.sub { padding-left: 24px; font-size: 12px; }
+.ch-solarsystem .ss-item .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; box-shadow: 0 0 6px currentColor; }
+.ch-solarsystem .ss-item .nm { flex: 1; }
+.ch-solarsystem .ss-item .kd { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.ch-solarsystem .ss-item.on .kd { color: var(--gold); }
+.ch-solarsystem .ss-group { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); padding: 8px 8px 2px; }
+.ch-solarsystem .ss-group:first-child { padding-top: 0; }
+.ch-solarsystem .ss-toggles { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding-top: 8px; border-top: 1px solid var(--line); }
+.ch-solarsystem .ss-toggles .lab { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-right: 2px; }
+.ch-solarsystem .seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 999px; overflow: hidden; }
+.ch-solarsystem .seg button {
+  appearance: none; border: 0; background: transparent; color: var(--text-2); font: inherit; font-size: 12px;
+  padding: 4px 10px; cursor: pointer; transition: background var(--t-fast), color var(--t-fast);
+}
+.ch-solarsystem .seg button.on { background: rgba(127,211,255,0.16); color: var(--cyan-2); }
+.ch-solarsystem .src { font-size: 10px; color: var(--muted); letter-spacing: 0.04em; margin-top: 6px; }
+
+/* Time control ------------------------------------------------------------------ */
+.ch-solarsystem .ss-time { width: min(560px, calc(100vw - 2 * var(--gutter))); padding: 12px 18px 12px; display: flex; flex-direction: column; gap: 8px; }
+.ch-solarsystem .ss-time .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ch-solarsystem .ss-time .clock { display: flex; align-items: baseline; gap: 14px; flex: 1; min-width: 0; }
+.ch-solarsystem .ss-time .date { font-family: var(--font-display); font-size: 26px; line-height: 1.05; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ch-solarsystem .ss-time .tod { font-size: 18px; font-variant-numeric: tabular-nums; color: var(--gold-2); font-weight: 600; letter-spacing: 0.02em; }
+.ch-solarsystem .ss-time .tz { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.ch-solarsystem .ss-time .transport { display: flex; gap: 6px; align-items: center; }
+.ch-solarsystem .ss-time .transport .ibtn { width: 34px; height: 34px; }
+.ch-solarsystem .ss-time .transport .ibtn.play { background: var(--gold); color: #1a1204; border-color: transparent; }
+.ch-solarsystem .ss-time .transport .ibtn.play:hover { background: var(--gold-2); }
+.ch-solarsystem .ss-time .speeds { display: flex; gap: 5px; flex-wrap: wrap; }
+.ch-solarsystem .ss-time .speeds .chip { padding: 4px 9px; font-size: 11px; font-variant-numeric: tabular-nums; }
+.ch-solarsystem .ss-time .speeds .chip .dot { display: none; }
+.ch-solarsystem .ss-time .inputs { display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap; padding-top: 6px; border-top: 1px solid var(--line); }
+.ch-solarsystem .ss-time .field { margin: 0; gap: 4px; flex: 1; min-width: 150px; }
+.ch-solarsystem .ss-time .field .in { display: flex; gap: 6px; align-items: center; }
+.ch-solarsystem input[type="date"] {
+  background: rgba(255,255,255,0.05); border: 1px solid var(--line-strong); color: var(--text);
+  border-radius: var(--radius-sm); padding: 6px 8px; font: inherit; font-size: 13px; outline: none; width: 100%; min-width: 0;
+  color-scheme: dark; font-variant-numeric: tabular-nums;
+}
+.ch-solarsystem input[type="date"]:focus { border-color: var(--cyan); }
+.ch-solarsystem .ss-summary { display: none; font-size: 11px; color: var(--text-2); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.ch-solarsystem .ss-summary b { color: var(--gold-2); font-weight: 600; }
+
+/* Live readouts ------------------------------------------------------------------ */
+.ch-solarsystem .ss-live { width: 300px; padding: 12px 16px 10px; }
+.ch-solarsystem .ss-live .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 4px 0 10px; }
+.ch-solarsystem .ss-live .stat .n { font-size: 22px; }
+.ch-solarsystem .ss-live .kv { font-size: 12px; gap: 3px 12px; }
+
+/* Info card ------------------------------------------------------------------------ */
+.ch-solarsystem .info-card { max-height: calc(100vh - var(--chrome-h) - 40px); overflow-y: auto; }
+.ch-solarsystem .info-card .blurb { margin: 0 0 10px; font-size: 13px; color: var(--text-2); }
+.ch-solarsystem .info-card .facts { margin: 10px 0 0; padding-left: 16px; font-size: 12.5px; color: var(--text-2); }
+.ch-solarsystem .info-card .facts li { margin: 3px 0; }
+.ch-solarsystem .info-card .facts li::marker { color: var(--gold); }
+.ch-solarsystem .info-card .kv dd.live { color: var(--gold-2); }
+.ch-solarsystem .info-card .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; box-shadow: 0 0 8px currentColor; }
+
+/* Responsive ----------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .ch-solarsystem .ss-live { display: none; }
+  .ch-solarsystem .ss-summary { display: block; }
+}
+@media (max-width: 720px) {
+  .ch-solarsystem .ss-bodies { left: var(--gutter); right: var(--gutter); width: auto; padding: 8px 10px; gap: 6px; }
+  .ch-solarsystem .ss-bodies .head { display: none; }
+  .ch-solarsystem .ss-list { flex-direction: row; overflow-x: auto; overflow-y: hidden; max-height: none; min-height: 0; gap: 4px; margin: 0; padding: 0; scrollbar-width: none; }
+  .ch-solarsystem .ss-list::-webkit-scrollbar { display: none; }
+  .ch-solarsystem .ss-group { display: none; }
+  .ch-solarsystem .ss-item { width: auto; flex: none; padding: 5px 9px; font-size: 12px; border: 1px solid var(--line); border-radius: 999px; gap: 6px; }
+  .ch-solarsystem .ss-item.sub { padding-left: 9px; }
+  .ch-solarsystem .ss-item .kd { display: none; }
+  .ch-solarsystem .ss-toggles { border-top: 0; padding-top: 0; }
+  .ch-solarsystem .ss-toggles .src { display: none; }
+  .ch-solarsystem .info-card { top: calc(var(--chrome-h) + 104px); max-height: 42vh; }
+  .ch-solarsystem .ss-time { left: var(--gutter); right: var(--gutter); width: auto; transform: none; bottom: calc(10px + var(--safe-bottom)); padding: 10px 12px; gap: 6px; }
+  .ch-solarsystem .ss-time .date { font-size: 20px; }
+  .ch-solarsystem .ss-time .tod { font-size: 15px; }
+  .ch-solarsystem .ss-time .tz { display: none; }
+  .ch-solarsystem .ss-time .speeds .chip { padding: 3px 7px; font-size: 10px; }
+  .ch-solarsystem .ss-time .inputs { gap: 8px; }
+  .ch-solarsystem .ss-time .field { min-width: 120px; }
+}
