@@ -1,0 +1,97 @@
+/* Galaxies chapter – every selector prefixed with .ch-galaxies */
+
+.ch-galaxies > .panel, .ch-galaxies > .info-card, .ch-galaxies > .toast, .ch-galaxies > .col-left { z-index: 3; }
+.ch-galaxies > .intro { z-index: 10; }
+
+/* Left column: stats + tour ------------------------------------------------- */
+.ch-galaxies .col-left {
+  position: absolute; top: calc(var(--chrome-h) + 12px); left: var(--gutter);
+  width: 300px; display: flex; flex-direction: column; gap: 10px;
+  max-height: calc(100vh - var(--chrome-h) - 90px); overflow: visible;
+}
+.ch-galaxies .col-left > .panel { padding: 14px 16px; }
+.ch-galaxies .stats { display: flex; flex-direction: column; gap: 10px; }
+.ch-galaxies .stats .stat .n { font-size: 26px; }
+.ch-galaxies .stats .stat .s { font-size: 12px; }
+.ch-galaxies .src { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; margin-top: 4px; }
+
+/* Tour panel */
+.ch-galaxies .tour .panel-title { margin-bottom: 6px; }
+.ch-galaxies .tour-title { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.1; margin: 0 0 4px; }
+.ch-galaxies .tour-title em { font-style: italic; color: var(--gold-2); }
+.ch-galaxies .tour-sub { margin: 0 0 12px; font-size: 13px; color: var(--text-2); }
+.ch-galaxies .tour-kicker { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.ch-galaxies .tour-kicker b { color: var(--gold-2); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+.ch-galaxies .tour-text { margin: 8px 0 10px; font-size: 13px; color: var(--text-2); line-height: 1.5; }
+.ch-galaxies .light { margin: 0; font-size: 12px; color: var(--cyan-2); line-height: 1.45; }
+.ch-galaxies .tour .btn-row { align-items: center; }
+.ch-galaxies .stops { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+.ch-galaxies .stop {
+  width: 20px; height: 20px; border-radius: 50%; padding: 0; margin: 0;
+  border: 1px solid var(--line-strong); background: rgba(255,255,255,0.04);
+  color: var(--muted); font: inherit; font-size: 10px; font-weight: 700; cursor: pointer;
+  transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+}
+.ch-galaxies .stop:hover { background: rgba(255,255,255,0.12); color: var(--text); }
+.ch-galaxies .stop.on { background: var(--gold); border-color: var(--gold); color: #1a1204; }
+.ch-galaxies .stop.done { border-color: var(--gold); color: var(--gold-2); }
+.ch-galaxies .tour-ctl { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
+.ch-galaxies .tour-ctl .play { width: 34px; justify-content: center; }
+.ch-galaxies .tour-ctl > .btn:nth-last-child(2) { margin-left: auto; }
+.ch-galaxies .prog { height: 2px; background: rgba(255,255,255,0.12); border-radius: 2px; margin: 12px 0 0; overflow: hidden; }
+.ch-galaxies .prog i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--cyan)); transition: width var(--t-slow) var(--ease); }
+.ch-galaxies .tour.active { border-color: rgba(242,196,109,0.35); }
+
+/* Map controls (top-right) ---------------------------------------------------- */
+.ch-galaxies .ctl { position: absolute; top: calc(var(--chrome-h) + 12px); right: var(--gutter); width: 300px; padding: 14px 16px; }
+.ch-galaxies .ctl .field { margin: 4px 0 10px; }
+.ch-galaxies .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.ch-galaxies .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 11px; color: var(--text-2); line-height: 1.6; }
+.ch-galaxies .legend .sw { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; box-shadow: 0 0 6px currentColor; }
+.ch-galaxies .sw.e { background: #f2b48a; color: #f2b48a; }
+.ch-galaxies .sw.s { background: #7fd3ff; color: #7fd3ff; }
+.ch-galaxies .sw.i { background: #b89cff; color: #b89cff; }
+.ch-galaxies .sw.u { background: #d5d9e0; color: #d5d9e0; }
+.ch-galaxies .sw.b { background: #7fb3ff; color: #7fb3ff; }
+.ch-galaxies .sw.w { background: #f4f1e8; color: #f4f1e8; }
+.ch-galaxies .sw.r { background: #ff8a6a; color: #ff8a6a; }
+.ch-galaxies .note { margin: 10px 0 0; padding: 10px 12px; border-radius: var(--radius-sm); background: rgba(127,211,255,0.08); border: 1px solid rgba(127,211,255,0.2); font-size: 12px; color: var(--text-2); line-height: 1.5; }
+.ch-galaxies .note b { color: var(--cyan-2); }
+.ch-galaxies .readout { margin-top: 10px; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.ch-galaxies .readout b { color: var(--gold-2); font-variant-numeric: tabular-nums; }
+.ch-galaxies .readout .sep { width: 1px; height: 12px; background: var(--line-strong); }
+
+/* HUD, fly button ---------------------------------------------------------- */
+.ch-galaxies .gl-hud { max-width: calc(100vw - 2 * var(--gutter)); flex-wrap: wrap; row-gap: 6px; }
+.ch-galaxies .fly-btn { position: absolute; bottom: calc(80px + var(--safe-bottom)); right: var(--gutter); padding: 14px 22px; font-size: 14px; touch-action: none; user-select: none; }
+
+/* 3D labels ------------------------------------------------------------------ */
+.ch-galaxies .labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.ch-galaxies .label3d { cursor: pointer; pointer-events: auto; transition: opacity var(--t-med); }
+.ch-galaxies .label3d:hover { color: var(--cyan-2); }
+
+/* Info card sits over the controls on the right */
+.ch-galaxies.has-card .ctl { opacity: 0; pointer-events: none; }
+.ch-galaxies .info-card .btn-row { margin-top: 12px; }
+
+/* Responsive --------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .ch-galaxies .col-left, .ch-galaxies .ctl { width: 260px; }
+}
+@media (max-width: 820px) {
+  .ch-galaxies .col-left { width: calc(100vw - 2 * var(--gutter)); max-height: none; gap: 8px; }
+  .ch-galaxies .stats { flex-direction: row; flex-wrap: wrap; gap: 8px 16px; }
+  .ch-galaxies .stats .stat { flex: 1 1 40%; }
+  .ch-galaxies .stats .stat .n { font-size: 20px; }
+  .ch-galaxies .stats .src { flex-basis: 100%; }
+  .ch-galaxies .tour { display: none; }
+  .ch-galaxies .tour.active { display: block; }
+  .ch-galaxies .ctl { top: auto; bottom: calc(70px + var(--safe-bottom)); right: var(--gutter); left: var(--gutter); width: auto; padding: 10px 12px; }
+  .ch-galaxies .ctl .legend, .ch-galaxies .ctl .readout, .ch-galaxies .ctl .src { display: none; }
+  .ch-galaxies .gl-hud { left: var(--gutter); right: var(--gutter); transform: none; }
+  .ch-galaxies .fly-btn { bottom: calc(150px + var(--safe-bottom)); }
+}
+@media (max-width: 820px) {
+  .ch-galaxies .gl-hud [data-s="hint"] { display: none; }
+  .ch-galaxies .ctl { bottom: calc(76px + var(--safe-bottom)); }
+}
