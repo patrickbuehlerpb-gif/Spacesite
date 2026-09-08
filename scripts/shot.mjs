@@ -54,7 +54,11 @@ let ok = true;
 try {
   await page.goto(url, { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => window.__kosmos && window.__kosmos.ready, null, { timeout: 60000 });
-  for (const sel of all('click')) { await page.click(sel, { timeout: 5000 }); await page.waitForTimeout(400); }
+  for (const sel of all('click')) {
+    const el = await page.$(sel);
+    if (el) { await el.click({ timeout: 5000 }); await page.waitForTimeout(400); }
+    else console.log(`[shot] note: selector not found, skipped click: ${sel}`);
+  }
   for (const key of all('key')) { await page.keyboard.press(key); await page.waitForTimeout(200); }
   for (const js of all('eval')) { const r = await page.evaluate(js); if (r !== undefined) console.log('[eval]', JSON.stringify(r)); }
   await page.waitForTimeout(WAIT);
