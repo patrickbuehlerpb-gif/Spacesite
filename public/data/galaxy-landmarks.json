@@ -1,0 +1,894 @@
+[
+ {
+  "id": "milkyway",
+  "name": "Milchstrasse",
+  "en": "Milky Way",
+  "ra": 0,
+  "dec": 0,
+  "dist": 0,
+  "kind": "galaxy",
+  "radius": 0.015,
+  "blurb": {
+   "de": "Unsere Heimatgalaxie: eine Balkenspirale mit 100 bis 400 Milliarden Sternen. Die Sonne kreist 26’000 Lichtjahre vom Zentrum entfernt, einmal in 230 Millionen Jahren.",
+   "en": "Our home galaxy: a barred spiral of 100 to 400 billion stars. The Sun orbits 26,000 light-years from the centre, once every 230 million years."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Sterne (Mrd.)",
+     "en": "Stars (billions)"
+    },
+    "value": 200
+   },
+   {
+    "label": {
+     "de": "Durchmesser (Lichtjahre)",
+     "en": "Diameter (light-years)"
+    },
+    "value": 100000
+   },
+   {
+    "label": {
+     "de": "Sonne–Zentrum (Lichtjahre)",
+     "en": "Sun–centre (light-years)"
+    },
+    "value": 26000
+   }
+  ]
+ },
+ {
+  "id": "lmc",
+  "name": "Grosse Magellansche Wolke",
+  "en": "Large Magellanic Cloud",
+  "ra": 80.894,
+  "dec": -69.756,
+  "dist": 0.05,
+  "kind": "galaxy",
+  "radius": 0.005,
+  "blurb": {
+   "de": "Die grösste Begleitgalaxie der Milchstrasse, 163’000 Lichtjahre entfernt und von der Südhalbkugel mit blossem Auge sichtbar. 1987 explodierte hier die nächste Supernova seit 400 Jahren.",
+   "en": "The Milky Way’s largest satellite, 163,000 light-years away and visible to the naked eye from the southern hemisphere. In 1987 it hosted the closest supernova in 400 years."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Lichtjahre)",
+     "en": "Distance (light-years)"
+    },
+    "value": 163000
+   },
+   {
+    "label": {
+     "de": "Sterne (Mrd.)",
+     "en": "Stars (billions)"
+    },
+    "value": 30
+   },
+   {
+    "label": {
+     "de": "Supernova",
+     "en": "Supernova"
+    },
+    "value": "SN 1987A"
+   }
+  ]
+ },
+ {
+  "id": "smc",
+  "name": "Kleine Magellansche Wolke",
+  "en": "Small Magellanic Cloud",
+  "ra": 13.158,
+  "dec": -72.8,
+  "dist": 0.06,
+  "kind": "galaxy",
+  "radius": 0.004,
+  "blurb": {
+   "de": "Eine Zwerggalaxie in 200’000 Lichtjahren Entfernung. Hier entdeckte Henrietta Leavitt 1912 die Perioden-Leuchtkraft-Beziehung der Cepheiden – den ersten Massstab für das Universum.",
+   "en": "A dwarf galaxy 200,000 light-years away. Here Henrietta Leavitt discovered the Cepheid period–luminosity relation in 1912 – the first yardstick for the universe."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Lichtjahre)",
+     "en": "Distance (light-years)"
+    },
+    "value": 200000
+   },
+   {
+    "label": {
+     "de": "Sterne (Mio.)",
+     "en": "Stars (millions)"
+    },
+    "value": 3000
+   },
+   {
+    "label": {
+     "de": "Leavitts Entdeckung",
+     "en": "Leavitt’s discovery"
+    },
+    "value": 1912
+   }
+  ]
+ },
+ {
+  "id": "m31",
+  "name": "Andromeda-Galaxie",
+  "en": "Andromeda Galaxy",
+  "ra": 10.685,
+  "dec": 41.269,
+  "dist": 0.78,
+  "kind": "galaxy",
+  "radius": 0.035,
+  "blurb": {
+   "de": "Die nächste grosse Spiralgalaxie, 2,5 Millionen Lichtjahre entfernt, mit rund einer Billion Sternen. Sie nähert sich uns mit 110 km/s – in etwa 4,5 Milliarden Jahren verschmelzen beide Galaxien.",
+   "en": "The nearest large spiral, 2.5 million light-years away, with about a trillion stars. It is approaching us at 110 km/s – in roughly 4.5 billion years the two galaxies will merge."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 2.5
+   },
+   {
+    "label": {
+     "de": "Sterne (Mrd.)",
+     "en": "Stars (billions)"
+    },
+    "value": 1000
+   },
+   {
+    "label": {
+     "de": "Annäherung (km/s)",
+     "en": "Approach speed (km/s)"
+    },
+    "value": 110
+   }
+  ]
+ },
+ {
+  "id": "m33",
+  "name": "Dreiecksgalaxie",
+  "en": "Triangulum Galaxy",
+  "ra": 23.462,
+  "dec": 30.66,
+  "dist": 0.84,
+  "kind": "galaxy",
+  "radius": 0.01,
+  "blurb": {
+   "de": "Die drittgrösste Galaxie der Lokalen Gruppe, 2,7 Millionen Lichtjahre entfernt. Ihre Sternentstehungsregion NGC 604 ist 40-mal grösser als der Orionnebel.",
+   "en": "The third-largest galaxy of the Local Group, 2.7 million light-years away. Its star-forming region NGC 604 is 40 times larger than the Orion Nebula."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 2.7
+   },
+   {
+    "label": {
+     "de": "Sterne (Mrd.)",
+     "en": "Stars (billions)"
+    },
+    "value": 40
+   },
+   {
+    "label": {
+     "de": "Durchmesser (Lichtjahre)",
+     "en": "Diameter (light-years)"
+    },
+    "value": 60000
+   }
+  ]
+ },
+ {
+  "id": "localgroup",
+  "name": "Lokale Gruppe",
+  "en": "Local Group",
+  "ra": 10.685,
+  "dec": 41.269,
+  "dist": 0.4,
+  "kind": "cluster",
+  "radius": 1.5,
+  "blurb": {
+   "de": "Milchstrasse, Andromeda, M33 und über 80 Zwerggalaxien in einem Volumen von 10 Millionen Lichtjahren Durchmesser – durch die Schwerkraft gebunden, vom Rest der Expansion abgekoppelt.",
+   "en": "The Milky Way, Andromeda, M33 and more than 80 dwarf galaxies in a volume 10 million light-years across – bound by gravity, decoupled from the cosmic expansion."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Galaxien",
+     "en": "Galaxies"
+    },
+    "value": 80
+   },
+   {
+    "label": {
+     "de": "Durchmesser (Mio. Lichtjahre)",
+     "en": "Diameter (million light-years)"
+    },
+    "value": 10
+   },
+   {
+    "label": {
+     "de": "Masse (Billionen Sonnen)",
+     "en": "Mass (trillion Suns)"
+    },
+    "value": 2
+   }
+  ]
+ },
+ {
+  "id": "cena",
+  "name": "Centaurus A",
+  "en": "Centaurus A",
+  "ra": 201.365,
+  "dec": -43.019,
+  "dist": 3.8,
+  "kind": "galaxy",
+  "radius": 0.03,
+  "blurb": {
+   "de": "Die nächste aktive Radiogalaxie, 12 Millionen Lichtjahre entfernt: ein Schwarzes Loch von 55 Millionen Sonnenmassen schleudert Jets über eine Million Lichtjahre ins All.",
+   "en": "The nearest active radio galaxy, 12 million light-years away: a black hole of 55 million solar masses hurls jets more than a million light-years into space."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 12
+   },
+   {
+    "label": {
+     "de": "Schwarzes Loch (Mio. Sonnenmassen)",
+     "en": "Black hole (million solar masses)"
+    },
+    "value": 55
+   },
+   {
+    "label": {
+     "de": "Jet-Länge (Mio. Lichtjahre)",
+     "en": "Jet length (million light-years)"
+    },
+    "value": 1
+   }
+  ]
+ },
+ {
+  "id": "m81group",
+  "name": "M81-Gruppe",
+  "en": "M81 Group",
+  "ra": 148.9,
+  "dec": 69.1,
+  "dist": 3.6,
+  "kind": "cluster",
+  "radius": 0.6,
+  "blurb": {
+   "de": "Eine der nächsten Galaxiengruppen, 12 Millionen Lichtjahre entfernt: die Spirale M81 und die Starburst-Galaxie M82, die zehnmal schneller Sterne bildet als die Milchstrasse.",
+   "en": "One of the nearest galaxy groups, 12 million light-years away: the spiral M81 and the starburst galaxy M82, which forms stars ten times faster than the Milky Way."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 12
+   },
+   {
+    "label": {
+     "de": "Galaxien",
+     "en": "Galaxies"
+    },
+    "value": 40
+   },
+   {
+    "label": {
+     "de": "Sternbildung M82 (× Milchstrasse)",
+     "en": "Star formation in M82 (× Milky Way)"
+    },
+    "value": 10
+   }
+  ]
+ },
+ {
+  "id": "sculptor",
+  "name": "Sculptor-Gruppe",
+  "en": "Sculptor Group",
+  "ra": 11.9,
+  "dec": -25.3,
+  "dist": 3.5,
+  "kind": "cluster",
+  "radius": 0.8,
+  "blurb": {
+   "de": "Eine lockere Galaxiengruppe am Südpol der Milchstrasse mit NGC 253, NGC 55 und NGC 300 – 11 Millionen Lichtjahre entfernt und Teil des Filaments, in dem auch wir liegen.",
+   "en": "A loose group at the Milky Way’s south galactic pole containing NGC 253, NGC 55 and NGC 300 – 11 million light-years away and part of the filament we live in."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 11
+   },
+   {
+    "label": {
+     "de": "Helle Galaxien",
+     "en": "Bright galaxies"
+    },
+    "value": 6
+   }
+  ]
+ },
+ {
+  "id": "virgo",
+  "name": "Virgo-Haufen",
+  "en": "Virgo Cluster",
+  "ra": 187.7,
+  "dec": 12.4,
+  "dist": 16.5,
+  "kind": "cluster",
+  "radius": 2.2,
+  "blurb": {
+   "de": "Der nächste grosse Galaxienhaufen, 54 Millionen Lichtjahre entfernt, mit rund 1’300 Galaxien. Seine Schwerkraft bremst die Lokale Gruppe – wir fallen auf ihn zu.",
+   "en": "The nearest large galaxy cluster, 54 million light-years away, with about 1,300 galaxies. Its gravity tugs on the Local Group – we are falling towards it."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Galaxien",
+     "en": "Galaxies"
+    },
+    "value": 1300
+   },
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 54
+   },
+   {
+    "label": {
+     "de": "Masse (Billiarden Sonnen)",
+     "en": "Mass (quadrillion Suns)"
+    },
+    "value": 1.2
+   }
+  ]
+ },
+ {
+  "id": "fornax",
+  "name": "Fornax-Haufen",
+  "en": "Fornax Cluster",
+  "ra": 54.6,
+  "dec": -35.5,
+  "dist": 19.3,
+  "kind": "cluster",
+  "radius": 1.2,
+  "blurb": {
+   "de": "Der zweitnächste Galaxienhaufen, 63 Millionen Lichtjahre entfernt: kompakt, von der Riesenelliptischen NGC 1399 dominiert, mit der Radiogalaxie Fornax A am Rand.",
+   "en": "The second-nearest galaxy cluster, 63 million light-years away: compact, dominated by the giant elliptical NGC 1399, with the radio galaxy Fornax A on its outskirts."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 63
+   },
+   {
+    "label": {
+     "de": "Helle Galaxien",
+     "en": "Bright galaxies"
+    },
+    "value": 60
+   }
+  ]
+ },
+ {
+  "id": "centaurus",
+  "name": "Centaurus-Haufen",
+  "en": "Centaurus Cluster",
+  "ra": 192.2,
+  "dec": -41.3,
+  "dist": 52,
+  "kind": "cluster",
+  "radius": 2,
+  "blurb": {
+   "de": "Ein Haufen aus Hunderten Galaxien, 170 Millionen Lichtjahre entfernt, um die Riesengalaxie NGC 4696. Er gehört zum Hydra-Centaurus-Superhaufen, der uns Richtung Grosser Attraktor zieht.",
+   "en": "A cluster of hundreds of galaxies, 170 million light-years away, around the giant NGC 4696. It belongs to the Hydra–Centaurus Supercluster that pulls us towards the Great Attractor."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 170
+   },
+   {
+    "label": {
+     "de": "Galaxien",
+     "en": "Galaxies"
+    },
+    "value": 300
+   }
+  ]
+ },
+ {
+  "id": "hydra",
+  "name": "Hydra-Haufen",
+  "en": "Hydra Cluster",
+  "ra": 159.2,
+  "dec": -27.5,
+  "dist": 58,
+  "kind": "cluster",
+  "radius": 2,
+  "blurb": {
+   "de": "Ein kugelförmiger Haufen mit rund 160 hellen Galaxien, 190 Millionen Lichtjahre entfernt – die Nordflanke des Hydra-Centaurus-Superhaufens.",
+   "en": "A roughly spherical cluster of about 160 bright galaxies, 190 million light-years away – the northern flank of the Hydra–Centaurus Supercluster."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 190
+   },
+   {
+    "label": {
+     "de": "Helle Galaxien",
+     "en": "Bright galaxies"
+    },
+    "value": 160
+   }
+  ]
+ },
+ {
+  "id": "norma",
+  "name": "Norma-Haufen / Grosser Attraktor",
+  "en": "Norma Cluster / Great Attractor",
+  "ra": 243.6,
+  "dec": -60.9,
+  "dist": 68,
+  "kind": "cluster",
+  "radius": 3,
+  "blurb": {
+   "de": "Im Kern des Grossen Attraktors, 220 Millionen Lichtjahre entfernt, halb versteckt hinter der Milchstrasse. Eine Masse von zehntausend Billionen Sonnen zieht die Milchstrasse mit 600 km/s an.",
+   "en": "At the core of the Great Attractor, 220 million light-years away, half hidden behind the Milky Way. A mass of ten thousand trillion Suns pulls the Milky Way along at 600 km/s."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 220
+   },
+   {
+    "label": {
+     "de": "Unsere Geschwindigkeit dorthin (km/s)",
+     "en": "Our speed towards it (km/s)"
+    },
+    "value": 600
+   },
+   {
+    "label": {
+     "de": "Masse (Billiarden Sonnen)",
+     "en": "Mass (quadrillion Suns)"
+    },
+    "value": 10
+   }
+  ]
+ },
+ {
+  "id": "perseus",
+  "name": "Perseus-Haufen",
+  "en": "Perseus Cluster",
+  "ra": 49.95,
+  "dec": 41.51,
+  "dist": 73,
+  "kind": "cluster",
+  "radius": 3,
+  "blurb": {
+   "de": "Der hellste Galaxienhaufen am Röntgenhimmel, 240 Millionen Lichtjahre entfernt. Sein heisses Gas schwingt im tiefsten je gemessenen «Ton»: ein B, 57 Oktaven unter dem Kammerton.",
+   "en": "The brightest galaxy cluster in the X-ray sky, 240 million light-years away. Its hot gas rings with the deepest “note” ever detected: a B-flat 57 octaves below middle C."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 240
+   },
+   {
+    "label": {
+     "de": "Galaxien",
+     "en": "Galaxies"
+    },
+    "value": 1000
+   },
+   {
+    "label": {
+     "de": "Tiefster Ton (Oktaven unter Kammerton)",
+     "en": "Deepest note (octaves below middle C)"
+    },
+    "value": 57
+   }
+  ]
+ },
+ {
+  "id": "leo",
+  "name": "Leo-Haufen (Abell 1367)",
+  "en": "Leo Cluster (Abell 1367)",
+  "ra": 176.15,
+  "dec": 19.83,
+  "dist": 92,
+  "kind": "cluster",
+  "radius": 2.5,
+  "blurb": {
+   "de": "Ein junger, noch wachsender Haufen in 300 Millionen Lichtjahren Entfernung, in dem gerade mehrere Galaxiengruppen zusammenstürzen. Mit dem Coma-Haufen bildet er den Coma-Superhaufen.",
+   "en": "A young, still-growing cluster 300 million light-years away where several galaxy groups are colliding right now. Together with the Coma Cluster it forms the Coma Supercluster."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 300
+   },
+   {
+    "label": {
+     "de": "Helle Galaxien",
+     "en": "Bright galaxies"
+    },
+    "value": 70
+   }
+  ]
+ },
+ {
+  "id": "coma",
+  "name": "Coma-Haufen",
+  "en": "Coma Cluster",
+  "ra": 194.95,
+  "dec": 27.98,
+  "dist": 100,
+  "kind": "cluster",
+  "radius": 3,
+  "blurb": {
+   "de": "Über 1’000 Galaxien in 320 Millionen Lichtjahren Entfernung. Hier stellte Fritz Zwicky 1933 fest, dass die Galaxien viel zu schnell sind – die erste Spur der Dunklen Materie.",
+   "en": "More than 1,000 galaxies 320 million light-years away. Here Fritz Zwicky noticed in 1933 that the galaxies move far too fast – the first trace of dark matter."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Galaxien",
+     "en": "Galaxies"
+    },
+    "value": 1000
+   },
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 320
+   },
+   {
+    "label": {
+     "de": "Zwickys Entdeckung",
+     "en": "Zwicky’s discovery"
+    },
+    "value": 1933
+   }
+  ]
+ },
+ {
+  "id": "hercules",
+  "name": "Hercules-Haufen",
+  "en": "Hercules Cluster",
+  "ra": 241.3,
+  "dec": 17.7,
+  "dist": 155,
+  "kind": "cluster",
+  "radius": 3,
+  "blurb": {
+   "de": "Ein ungewöhnlich unruhiger Haufen in 500 Millionen Lichtjahren Entfernung, voller Spiralgalaxien und Kollisionen – ein Haufen, der noch nicht fertig ist.",
+   "en": "An unusually turbulent cluster 500 million light-years away, full of spirals and collisions – a cluster still in the making."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 500
+   },
+   {
+    "label": {
+     "de": "Galaxien",
+     "en": "Galaxies"
+    },
+    "value": 200
+   }
+  ]
+ },
+ {
+  "id": "laniakea",
+  "name": "Laniakea",
+  "en": "Laniakea",
+  "ra": 243.6,
+  "dec": -60.9,
+  "dist": 68,
+  "kind": "supercluster",
+  "radius": 80,
+  "blurb": {
+   "de": "Unser Superhaufen, 2014 definiert: 100’000 Galaxien in einem Bereich von 520 Millionen Lichtjahren, die alle zum Grossen Attraktor hin strömen. Der Name ist hawaiianisch für «unermesslicher Himmel».",
+   "en": "Our supercluster, defined in 2014: 100,000 galaxies in a region 520 million light-years across, all streaming towards the Great Attractor. The name is Hawaiian for “immeasurable heaven”."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Galaxien",
+     "en": "Galaxies"
+    },
+    "value": 100000
+   },
+   {
+    "label": {
+     "de": "Durchmesser (Mio. Lichtjahre)",
+     "en": "Diameter (million light-years)"
+    },
+    "value": 520
+   },
+   {
+    "label": {
+     "de": "Masse (Billiarden Sonnen)",
+     "en": "Mass (quadrillion Suns)"
+    },
+    "value": 100
+   }
+  ]
+ },
+ {
+  "id": "perseuspisces",
+  "name": "Perseus-Pisces-Superhaufen",
+  "en": "Perseus–Pisces Supercluster",
+  "ra": 25,
+  "dec": 35,
+  "dist": 70,
+  "kind": "supercluster",
+  "radius": 30,
+  "blurb": {
+   "de": "Eine der grössten Strukturen in unserer Nähe: ein 250 Millionen Lichtjahre langes Filament aus Galaxienhaufen, das sich vom Perseus-Haufen bis in die Fische zieht.",
+   "en": "One of the largest structures nearby: a filament of galaxy clusters 250 million light-years long, stretching from the Perseus Cluster into Pisces."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Länge (Mio. Lichtjahre)",
+     "en": "Length (million light-years)"
+    },
+    "value": 250
+   },
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 230
+   }
+  ]
+ },
+ {
+  "id": "pavoindus",
+  "name": "Pavo-Indus-Superhaufen",
+  "en": "Pavo–Indus Supercluster",
+  "ra": 315,
+  "dec": -50,
+  "dist": 60,
+  "kind": "supercluster",
+  "radius": 20,
+  "blurb": {
+   "de": "Ein Superhaufen am Südhimmel, rund 200 Millionen Lichtjahre entfernt, der Laniakea mit dem Perseus-Pisces-Filament verbindet.",
+   "en": "A supercluster in the southern sky, some 200 million light-years away, linking Laniakea with the Perseus–Pisces filament."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 200
+   },
+   {
+    "label": {
+     "de": "Galaxienhaufen",
+     "en": "Galaxy clusters"
+    },
+    "value": 5
+   }
+  ]
+ },
+ {
+  "id": "shapley",
+  "name": "Shapley-Superhaufen",
+  "en": "Shapley Supercluster",
+  "ra": 202.5,
+  "dec": -31.5,
+  "dist": 200,
+  "kind": "supercluster",
+  "radius": 20,
+  "blurb": {
+   "de": "Die dichteste Massenkonzentration im nahen Universum: über 25 Galaxienhaufen in 650 Millionen Lichtjahren Entfernung. Auch sie zieht an uns – hinter dem Grossen Attraktor.",
+   "en": "The densest concentration of mass in the nearby universe: more than 25 galaxy clusters 650 million light-years away. It too pulls on us – from behind the Great Attractor."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Entfernung (Mio. Lichtjahre)",
+     "en": "Distance (million light-years)"
+    },
+    "value": 650
+   },
+   {
+    "label": {
+     "de": "Galaxienhaufen",
+     "en": "Galaxy clusters"
+    },
+    "value": 25
+   },
+   {
+    "label": {
+     "de": "Masse (Billiarden Sonnen)",
+     "en": "Mass (quadrillion Suns)"
+    },
+    "value": 10000
+   }
+  ]
+ },
+ {
+  "id": "greatwall",
+  "name": "Grosse Mauer (CfA2)",
+  "en": "CfA2 Great Wall",
+  "ra": 190,
+  "dec": 30,
+  "dist": 100,
+  "kind": "wall",
+  "radius": 60,
+  "blurb": {
+   "de": "1989 von Margaret Geller und John Huchra entdeckt: eine Wand aus Galaxien, 500 Millionen Lichtjahre lang, 200 Millionen breit und nur 15 Millionen dick. Der Coma-Haufen sitzt in ihrer Mitte.",
+   "en": "Discovered in 1989 by Margaret Geller and John Huchra: a wall of galaxies 500 million light-years long, 200 million wide and only 15 million thick. The Coma Cluster sits at its centre."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Länge (Mio. Lichtjahre)",
+     "en": "Length (million light-years)"
+    },
+    "value": 500
+   },
+   {
+    "label": {
+     "de": "Dicke (Mio. Lichtjahre)",
+     "en": "Thickness (million light-years)"
+    },
+    "value": 15
+   },
+   {
+    "label": {
+     "de": "Entdeckt",
+     "en": "Discovered"
+    },
+    "value": 1989
+   }
+  ]
+ },
+ {
+  "id": "sloanwall",
+  "name": "Sloan Great Wall",
+  "en": "Sloan Great Wall",
+  "ra": 200,
+  "dec": -1,
+  "dist": 340,
+  "kind": "wall",
+  "radius": 200,
+  "blurb": {
+   "de": "Eine der grössten bekannten Strukturen: 1,4 Milliarden Lichtjahre lang, 2003 im Sloan Digital Sky Survey gefunden – am äusseren Rand dieser Karte.",
+   "en": "One of the largest structures known: 1.4 billion light-years long, found in 2003 in the Sloan Digital Sky Survey – at the outer edge of this map."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Länge (Mrd. Lichtjahre)",
+     "en": "Length (billion light-years)"
+    },
+    "value": 1.4
+   },
+   {
+    "label": {
+     "de": "Entfernung (Mrd. Lichtjahre)",
+     "en": "Distance (billion light-years)"
+    },
+    "value": 1.1
+   }
+  ]
+ },
+ {
+  "id": "localvoid",
+  "name": "Lokale Leere",
+  "en": "Local Void",
+  "ra": 270,
+  "dec": 6,
+  "dist": 23,
+  "kind": "void",
+  "radius": 20,
+  "blurb": {
+   "de": "Direkt neben der Lokalen Gruppe beginnt eine fast leere Blase von mindestens 150 Millionen Lichtjahren Durchmesser. Ihr «Sog» – eigentlich fehlende Anziehung – schiebt uns mit 260 km/s von ihr weg.",
+   "en": "Right next to the Local Group begins an almost empty bubble at least 150 million light-years across. Its “push” – really a lack of pull – moves us away from it at 260 km/s."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Durchmesser (Mio. Lichtjahre)",
+     "en": "Diameter (million light-years)"
+    },
+    "value": 150
+   },
+   {
+    "label": {
+     "de": "Unsere Fluchtgeschwindigkeit (km/s)",
+     "en": "Our speed away from it (km/s)"
+    },
+    "value": 260
+   }
+  ]
+ },
+ {
+  "id": "bootesvoid",
+  "name": "Boötes-Void",
+  "en": "Boötes Void",
+  "ra": 218,
+  "dec": 26,
+  "dist": 215,
+  "kind": "void",
+  "radius": 50,
+  "blurb": {
+   "de": "Die «Grosse Leere»: 330 Millionen Lichtjahre Durchmesser und nur etwa 60 Galaxien, wo man 2’000 erwarten würde. Lebten wir in ihrer Mitte, hätten wir bis in die 1960er keine andere Galaxie gekannt.",
+   "en": "The “Great Nothing”: 330 million light-years across and only about 60 galaxies where 2,000 would be expected. If we lived at its centre, we would not have known of any other galaxy until the 1960s."
+  },
+  "numbers": [
+   {
+    "label": {
+     "de": "Durchmesser (Mio. Lichtjahre)",
+     "en": "Diameter (million light-years)"
+    },
+    "value": 330
+   },
+   {
+    "label": {
+     "de": "Galaxien",
+     "en": "Galaxies"
+    },
+    "value": 60
+   },
+   {
+    "label": {
+     "de": "Entdeckt",
+     "en": "Discovered"
+    },
+    "value": 1981
+   }
+  ]
+ }
+]
