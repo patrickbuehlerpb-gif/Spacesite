@@ -17,6 +17,8 @@ html, body {
 
 body { position: relative; }
 
+[hidden] { display: none !important; }
+
 a { color: var(--cyan); text-decoration: none; }
 a:hover { color: var(--cyan-2); }
 

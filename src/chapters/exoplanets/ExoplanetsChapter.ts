@@ -596,6 +596,7 @@ export default class ExoplanetsChapter extends BaseChapter {
     this.tabMap.classList.toggle('active', !charts); this.tabCharts.classList.toggle('active', charts);
     this.filtersPanel.hidden = charts; this.statsPanel.hidden = charts; this.hudPanel.hidden = charts;
     if (this.card) this.card.hidden = charts;
+    if (this.labelRenderer) this.labelRenderer.domElement.style.visibility = charts ? 'hidden' : 'visible';
     if (charts) {
       this.setMode('orbit');
       this.rig.enabled = false;
