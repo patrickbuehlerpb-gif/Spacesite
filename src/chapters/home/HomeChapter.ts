@@ -10,10 +10,10 @@ import { showCredits } from '../../core/chrome';
 import { tween, easeOutCubic, type TweenHandle } from '../../core/tween';
 import { fmtNum, fmtDistancePc, fmtDistanceLy, fmtLightTime, raDecToXYZ, clamp, lerp, KM_PER_AU, KM_PER_PC, C_KM_S } from '../../core/units';
 import { spectralClassFromBv } from '../../core/color';
-import { createStarPoints, colorsFromBv } from '../../core/StarPoints';
 import { loadStarCatalog, loadStarNames, loadConstellations, starDisplayName, type StarCatalog, type StarName } from '../../data/stars';
 import { chapters } from '../registry';
 import { fetchISS, fetchAstronautsInSpace, fetchUpcomingLaunches, type IssState, type Launch } from '../../live/api';
+import { createSkyStars } from './skyStars';
 
 /**
  * Landing page: the real night sky seen from Earth (camera at the origin of the HYG catalogue),
@@ -27,8 +27,9 @@ const SKY_R = 400;                   // pc – radius for constellation lines / 
 const DRIFT_RAD_S = 0.2 * DEG;       // camera drift along the Milky Way
 const PARALLAX_RAD = 1.5 * DEG;      // mouse parallax amplitude
 const EARTH_KM_S = 29.78;            // Earth's mean orbital speed around the Sun
-const MAX_LABELS = 12;
-const LABEL_POOL = 60;
+const MAX_LABELS = 12;               // labels visible at once
+const LABEL_POOL = 160;              // brightest named stars kept in the pool (frustum-checked)
+const LINE_ALPHA = 0.18;             // constellation lines: mean opacity, breathing ±0.07 over 20 s
 // J2000 galactic centre (Sgr A*) and north galactic pole
 const GC_RA = 266.405, GC_DEC = -28.936;
 const NGP_RA = 192.8595, NGP_DEC = 27.1283;
@@ -56,12 +57,18 @@ export default class HomeChapter extends BaseChapter {
   private par = { yaw: 0, pitch: 0 };
   private parTarget = { yaw: 0, pitch: 0 };
   private labelClock = 0;
+  private zones = new Float32Array(12);          // up to 3 screen rects the labels must avoid
+  private shownXY = new Float32Array(MAX_LABELS * 2);
+  private fovBase = 60;
+  private settle = 1;                // 1.1 → 1: slow settle-in zoom after mount
+  private settleTween?: TweenHandle;
 
   // scroll-linked UI
   private scrollY = 0;
   private lastScrollY = -1;
   private heroInner!: HTMLElement;
   private cue!: HTMLElement;
+  private skyNote!: HTMLElement;
 
   // ticker
   private t0 = Date.now();
@@ -99,15 +106,20 @@ export default class HomeChapter extends BaseChapter {
     this.poleAxis.set(px, py, pz).normalize();
     this.camera.position.set(0, 0, 0);
     this.camera.up.set(0, 1, 0);
+    if (!this.ctx.app.reducedMotion) {
+      this.settle = 1.1;
+      this.settleTween = tween(7000, (k) => { this.settle = 1.1 - 0.1 * k; this.applyFov(); }, easeOutCubic);
+    }
+    this.applyFov();
     this.aimCamera();
 
     const [cat, names, cons] = await Promise.all([loadStarCatalog(), loadStarNames(), loadConstellations()]);
     if (!this.mounted) return;
     this.cat = cat;
+    (window as unknown as { __home: unknown }).__home = this;
 
-    // stars: one Points for the whole catalogue, true apparent magnitudes from the origin
-    const stars = createStarPoints(cat.pos, cat.absMag, colorsFromBv(cat.ci), { size: 9, magOffset: -0.35 });
-    this.sky.add(stars);
+    // stars: one Points for the whole catalogue, true apparent magnitudes from Earth
+    this.sky.add(createSkyStars(cat, { magRef: 5.5, size: 2.5, maxSize: 32, halo: 0.22 }));
 
     // constellation lines projected onto a sphere of radius SKY_R (straight lines from the origin's view)
     const segs: number[] = [];
@@ -122,7 +134,7 @@ export default class HomeChapter extends BaseChapter {
     const geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(segs), 3));
     const cyan = new THREE.Color(cssVar('--cyan') || '#7fd3ff');
-    const mat = new THREE.LineBasicMaterial({ color: cyan, transparent: true, opacity: 0.18, blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false });
+    const mat = new THREE.LineBasicMaterial({ color: cyan, transparent: true, opacity: LINE_ALPHA, blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false });
     this.lines = new THREE.LineSegments(geo, mat);
     this.lines.frustumCulled = false;
     this.sky.add(this.lines);
@@ -133,12 +145,15 @@ export default class HomeChapter extends BaseChapter {
     const named = names.list.filter((n) => n.name && n.i < cat.count).sort((a, b) => cat.mag[a.i] - cat.mag[b.i]).slice(0, LABEL_POOL);
     for (const n of named) {
       const [x, y, z] = this.dirOf(n.i, cat);
-      const obj = this.label(`<span>${n.name}</span>`, 'star-label ia', this.sky, new THREE.Vector3(x, y, z));
+      const obj = this.label(`<span role="button" tabindex="0">${n.name}</span>`, 'star-label ia', this.sky, new THREE.Vector3(x, y, z));
       obj.visible = false;
       const entry: PoolEntry = { obj, el: obj.element, name: n, i: n.i };
-      obj.element.addEventListener('click', (e) => { e.stopPropagation(); this.selectStar(entry); });
+      const btn = obj.element.firstElementChild as HTMLElement;
+      btn.addEventListener('click', (e) => { e.stopPropagation(); this.selectStar(entry); });
+      btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.selectStar(entry); } });
       this.pool.push(entry);
     }
+    this.camera.updateMatrixWorld();
     this.updateLabels();
 
     // ---- interaction ---------------------------------------------------------------------------
@@ -180,10 +195,10 @@ export default class HomeChapter extends BaseChapter {
       button(`<span class="live-dot"></span>${t('home.ctaLive')}`, () => navigate('live'), 'ghost'),
     );
     this.heroInner.appendChild(cta);
-    const note = el('div', 'sky-note', `<b>${t('home.skyNote')}</b><br>${t('home.skyHint')}`);
+    this.skyNote = el('div', 'sky-note', `<b>${t('home.skyNote')}</b><br>${t('home.skyHint')}`);
     this.cue = el('button', 'scroll-cue ia', `<span>${t('home.scroll')}</span><i></i>`);
     (this.cue as HTMLButtonElement).type = 'button';
-    hero.append(this.heroInner, note, this.cue);
+    hero.append(this.heroInner, this.skyNote, this.cue);
 
     // Below the fold
     const below = el('div', 'below');
@@ -237,13 +252,14 @@ export default class HomeChapter extends BaseChapter {
 
     // Live ticker (fixed to the viewport)
     const ticker = el('div', 'ticker ia');
-    this.issEl = this.tickerItem(ticker, t('home.tickIss'), this.issSlots, ['v', 'alt', 'lat', 'lon']);
+    const track = el('div', 'track');
+    this.issEl = this.tickerItem(track, t('home.tickIss'), this.issSlots, ['v', 'alt', 'lat', 'lon']);
     this.issDot = this.issEl.querySelector('.live-dot') as HTMLElement;
-    this.astroEl = this.tickerItem(ticker, t('home.tickAstro'), this.astroSlots, ['n']);
-    this.launchEl = this.tickerItem(ticker, t('home.tickLaunch'), this.launchSlots, ['name', 't']);
-    this.earthEl = this.tickerItem(ticker, t('home.tickEarth'), this.earthSlots, ['km']);
+    this.astroEl = this.tickerItem(track, t('home.tickAstro'), this.astroSlots, ['n']);
+    this.launchEl = this.tickerItem(track, t('home.tickLaunch'), this.launchSlots, ['name', 't']);
+    this.earthEl = this.tickerItem(track, t('home.tickEarth'), this.earthSlots, ['km']);
     this.earthEl.hidden = false;
-    ticker.appendChild(el('span', 'src', t('home.tickSrc')));
+    ticker.append(track, el('span', 'src', t('home.tickSrc')));
 
     this.root.append(hero, below, ticker);
   }
@@ -351,7 +367,9 @@ export default class HomeChapter extends BaseChapter {
       return;
     }
     this.launchEl.hidden = false;
-    this.launchSlots.name.textContent = l.name.replace(/\s*\|\s*/g, ' · ');
+    const parts = l.name.split('|').map((p) => p.trim()).filter(Boolean);
+    this.launchSlots.name.textContent = parts.length > 1 ? parts[1] : parts[0] ?? l.name;
+    this.launchSlots.name.title = `${l.name} · ${l.provider}`;
     this.launchSlots.t.textContent = fmtCountdown(Date.parse(l.net) - now);
   }
 
@@ -375,15 +393,38 @@ export default class HomeChapter extends BaseChapter {
     this.camera.rotateX(this.par.pitch);
   }
 
+  private applyFov(): void {
+    this.camera.fov = this.fovBase * this.settle;
+    this.camera.updateProjectionMatrix();
+  }
+
+  /**
+   * Choose which pooled labels to show: brightest first, inside the safe area of the viewport,
+   * never over the hero text / scroll cue / source note, and never on top of another label.
+   */
   private updateLabels(): void {
+    const W = this.ctx.app.width, H = this.ctx.app.height;
+    const max = W < 720 ? 8 : MAX_LABELS;
+    const hero = this.scrollY < H;
+    let nz = 0;
+    if (hero) for (const z of [this.heroInner, this.cue, this.skyNote]) {
+      const r = z.getBoundingClientRect();
+      this.zones[nz++] = r.left - 14; this.zones[nz++] = r.top - 10; this.zones[nz++] = r.right + 14; this.zones[nz++] = r.bottom + 10;
+    }
     let shown = 0;
     for (const e of this.pool) {
       let vis = false;
-      if (shown < MAX_LABELS) {
+      if (shown < max) {
         this.v.copy(e.obj.position).applyMatrix4(this.sky.matrixWorld).project(this.camera);
-        vis = this.v.z < 1 && Math.abs(this.v.x) < 0.94 && Math.abs(this.v.y) < 0.9;
+        const x = (this.v.x + 1) * 0.5 * W, y = (1 - this.v.y) * 0.5 * H;
+        vis = this.v.z < 1 && x > 24 && x < W - 150 && y > 72 && y < H - 96;
+        for (let i = 0; vis && i < nz; i += 4) if (x > this.zones[i] && x < this.zones[i + 2] && y > this.zones[i + 1] && y < this.zones[i + 3]) vis = false;
+        for (let i = 0; vis && i < shown; i++) {
+          const dx = x - this.shownXY[i * 2], dy = y - this.shownXY[i * 2 + 1];
+          if (dx > -120 && dx < 120 && dy > -18 && dy < 18) vis = false;
+        }
+        if (vis) { this.shownXY[shown * 2] = x; this.shownXY[shown * 2 + 1] = y; shown++; }
       }
-      if (vis) shown++;
       e.obj.visible = vis;
     }
   }
@@ -428,7 +469,7 @@ export default class HomeChapter extends BaseChapter {
     this.aimCamera();
 
     // constellation lines breathe over ~20 s
-    if (this.lines) this.lines.material.opacity = 0.14 + 0.07 * Math.sin((this.time * 2 * Math.PI) / 20);
+    if (this.lines) this.lines.material.opacity = LINE_ALPHA + 0.07 * Math.sin((this.time * 2 * Math.PI) / 20);
 
     // star labels: re-check the frustum a few times per second
     this.labelClock += dt;
@@ -441,8 +482,10 @@ export default class HomeChapter extends BaseChapter {
       const f = clamp(this.scrollY / (0.55 * h), 0, 1);
       this.heroInner.style.transform = `translateY(${(this.scrollY * 0.28).toFixed(1)}px)`;
       this.heroInner.style.opacity = String(1 - f);
-      this.cue.style.opacity = String(1 - clamp(this.scrollY / (0.2 * h), 0, 1));
-      if (this.labelRenderer) this.labelRenderer.domElement.style.opacity = String(1 - f);
+      const g = 1 - clamp(this.scrollY / (0.25 * h), 0, 1);
+      this.cue.style.opacity = String(g);
+      this.skyNote.style.opacity = String(g);
+      if (this.labelRenderer) this.labelRenderer.domElement.style.opacity = String(g);
     }
 
     // ticker clocks
@@ -457,12 +500,14 @@ export default class HomeChapter extends BaseChapter {
 
   resize(width: number, height: number): void {
     const aspect = width / Math.max(1, height);
-    this.camera.fov = aspect < 1 ? 82 : aspect < 1.4 ? 68 : 60;
+    this.fovBase = aspect < 1 ? 82 : aspect < 1.4 ? 68 : 60;
+    this.camera.fov = this.fovBase * this.settle;
     super.resize(width, height);
   }
 
   protected teardown(): void {
     this.issTween?.cancel();
+    this.settleTween?.cancel();
     this.card?.remove();
   }
 }

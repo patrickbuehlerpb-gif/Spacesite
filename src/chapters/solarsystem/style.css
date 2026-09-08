@@ -118,3 +118,36 @@
   .ch-solarsystem .ss-time .inputs { gap: 8px; }
   .ch-solarsystem .ss-time .field { min-width: 120px; }
 }
+
+/* Layering: label layer sits above the drag-catch layer so label buttons are clickable ------------- */
+.ch-solarsystem .ss-labels { z-index: 2; }
+.ch-solarsystem .ss-lblwrap { pointer-events: none; }
+.ch-solarsystem .ss-lbl { position: relative; top: 9px; left: 7px; }
+.ch-solarsystem .ss-lbl.on { color: var(--gold-2); }
+
+/* Body list: overview entry only on narrow screens */
+.ch-solarsystem .ss-item.ov { display: none; }
+.ch-solarsystem .ss-bodies .head .btn { padding: 5px 10px; font-size: 11px; }
+
+/* Live readouts (bottom right, desktop only) */
+.ch-solarsystem .ss-live .panel-title { margin-bottom: 4px; }
+.ch-solarsystem .ss-live .stat .s { font-size: 11px; }
+.ch-solarsystem .ss-live .kv dd { white-space: nowrap; }
+
+/* Info card: keep space for the live panel on desktop */
+.ch-solarsystem .info-card { max-height: max(280px, calc(100vh - var(--chrome-h) - 300px)); }
+.ch-solarsystem .info-card .src { font-size: 10px; color: var(--muted); margin-top: 10px; letter-spacing: 0.04em; }
+.ch-solarsystem .info-card .kv dd { white-space: nowrap; }
+
+/* Time panel: keyboard hint line */
+.ch-solarsystem .ss-time .keys { display: none; font-size: 10px; color: var(--muted); letter-spacing: 0.04em; }
+@media (hover: hover) and (pointer: fine) { .ch-solarsystem .ss-time .keys { display: block; } }
+
+@media (max-width: 900px) {
+  .ch-solarsystem .info-card { max-height: calc(100vh - var(--chrome-h) - 40px); }
+}
+@media (max-width: 720px) {
+  .ch-solarsystem .ss-item.ov { display: inline-flex; }
+  .ch-solarsystem .ss-time .keys { display: none; }
+  .ch-solarsystem .ss-time .inputs .field:first-child { display: none; }
+}

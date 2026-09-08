@@ -1,0 +1,233 @@
+/* KOSMOS · exoplanets chapter. Every selector is scoped to .ch-exoplanets.
+   Chart colours (--viz-*) are set on the root element by the chapter (see palette.ts). */
+.ch-exoplanets { --accent: var(--green); }
+
+/* Tab switcher (top centre) ----------------------------------------------- */
+.ch-exoplanets .xo-tabs { display: flex; gap: 2px; padding: 4px !important; }
+.ch-exoplanets .xo-tabs .btn { border-color: transparent; background: transparent; color: var(--text-2); padding: 7px 14px; }
+.ch-exoplanets .xo-tabs .btn.active { background: rgba(242,196,109,0.14); color: var(--gold-2); }
+
+/* Filters panel (top left) ---------------------------------------------------- */
+.ch-exoplanets .xo-filters {
+  width: min(304px, calc(100vw - 2 * var(--gutter)));
+  max-height: calc(100vh - var(--chrome-h) - 150px - var(--safe-bottom));
+  overflow: auto; scrollbar-width: thin;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease);
+}
+.ch-exoplanets .xo-filters .head { display: flex; align-items: center; justify-content: space-between; }
+.ch-exoplanets .xo-filters .head .panel-title { margin: 0; }
+.ch-exoplanets .xo-filters .fold { display: none; }
+.ch-exoplanets .xo-filters .group { display: flex; flex-direction: column; gap: 6px; }
+.ch-exoplanets .glabel {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+}
+.ch-exoplanets .glabel .val { font-variant-numeric: tabular-nums; color: var(--gold-2); font-weight: 600; letter-spacing: 0.02em; text-transform: none; }
+.ch-exoplanets .glabel .note { letter-spacing: 0.02em; text-transform: none; font-size: 10px; }
+.ch-exoplanets .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.ch-exoplanets .chips .chip { padding: 4px 9px; font-size: 11.5px; }
+.ch-exoplanets .chips .chip .dot { background: var(--c, currentColor); }
+.ch-exoplanets .chips .chip:not(.on) .dot { opacity: 0.45; }
+.ch-exoplanets .chips .chip small { color: var(--muted); font-size: 10px; margin-left: 2px; }
+.ch-exoplanets .xo-filters .field { margin: 0; }
+.ch-exoplanets .xo-filters .field label { display: flex; justify-content: space-between; }
+
+/* Search */
+.ch-exoplanets .xo-search { position: relative; }
+.ch-exoplanets .xo-search input { width: 100%; padding-left: 32px; }
+.ch-exoplanets .xo-search svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.ch-exoplanets .xo-results {
+  position: absolute; left: 0; right: 0; top: calc(100% + 4px); z-index: 6;
+  display: flex; flex-direction: column; padding: 4px; overflow: hidden;
+}
+.ch-exoplanets .xo-results button {
+  display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+  width: 100%; text-align: left; padding: 7px 10px; border: 0; background: transparent; color: var(--text);
+  border-radius: 6px; cursor: pointer; font-size: 13px;
+}
+.ch-exoplanets .xo-results button:hover, .ch-exoplanets .xo-results button:focus-visible { background: rgba(255,255,255,0.08); outline: none; }
+.ch-exoplanets .xo-results button small { color: var(--muted); font-size: 11px; white-space: nowrap; }
+.ch-exoplanets .xo-results .empty { padding: 7px 10px; font-size: 12px; color: var(--muted); }
+
+/* Year playback */
+.ch-exoplanets .xo-year { display: flex; align-items: center; gap: 10px; }
+.ch-exoplanets .xo-year .field { flex: 1; }
+.ch-exoplanets .xo-year .ibtn { flex: none; background: var(--gold); border-color: transparent; color: #1a1204; }
+.ch-exoplanets .xo-year .ibtn:hover { background: var(--gold-2); }
+.ch-exoplanets .xo-counter { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding-top: 4px; border-top: 1px solid var(--line); }
+.ch-exoplanets .xo-counter .stat .n { font-size: 30px; transition: text-shadow var(--t-fast); }
+.ch-exoplanets .xo-counter.hot .stat .n { text-shadow: 0 0 18px rgba(255,221,154,0.55); }
+.ch-exoplanets .xo-counter .yr { font-family: var(--font-display); font-size: 34px; color: var(--text); font-variant-numeric: tabular-nums; line-height: 1; }
+.ch-exoplanets .xo-counter .yr small { display: block; font-family: var(--font-ui); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 2px; text-align: right; }
+.ch-exoplanets .xo-filters .foot { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.ch-exoplanets .xo-filters .btn-row { justify-content: space-between; }
+
+/* Stats (bottom left) --------------------------------------------------------- */
+.ch-exoplanets .xo-stats { display: flex; gap: 26px; align-items: flex-end; padding: 12px 18px !important; }
+.ch-exoplanets .xo-stats .stat .n { font-size: clamp(22px, 2.4vw, 30px); }
+.ch-exoplanets .xo-stats .src { font-size: 10.5px; color: var(--muted); letter-spacing: 0.04em; max-width: 150px; line-height: 1.5; }
+
+/* HUD (bottom centre) */
+.ch-exoplanets .xo-hud { white-space: nowrap; }
+.ch-exoplanets .xo-hud kbd { text-transform: none; }
+
+/* 3D labels ------------------------------------------------------------------ */
+.ch-exoplanets .label3d.xo-host { width: 0; height: 0; position: relative; }
+.ch-exoplanets .label3d.xo-host span {
+  position: absolute; left: 8px; top: -0.7em; white-space: nowrap;
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-2);
+  padding: 1px 5px; border-radius: 4px; cursor: pointer;
+  transition: color var(--t-fast), background var(--t-fast);
+}
+.ch-exoplanets .label3d.xo-host span:hover, .ch-exoplanets .label3d.xo-host.on span { color: var(--cyan-2); background: rgba(9,13,24,0.7); }
+.ch-exoplanets .label3d.xo-ring { color: var(--muted); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; }
+.ch-exoplanets .label3d.xo-sun { color: var(--gold-2); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; transform: translate(14px, -50%); }
+.ch-exoplanets .label3d.xo-marker { width: 0; height: 0; }
+.ch-exoplanets .label3d.xo-marker::before {
+  content: ''; position: absolute; left: -14px; top: -14px; width: 28px; height: 28px; border-radius: 50%;
+  border: 1.5px solid var(--cyan); box-shadow: 0 0 12px rgba(127,211,255,0.5), inset 0 0 8px rgba(127,211,255,0.25);
+  animation: xo-ring 2.2s ease-out infinite;
+}
+.ch-exoplanets .label3d.xo-marker::after {
+  content: ''; position: absolute; left: -22px; top: -22px; width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid rgba(127,211,255,0.35);
+}
+@keyframes xo-ring { 0% { transform: scale(0.85); opacity: 1; } 100% { transform: scale(1.25); opacity: 0.35; } }
+
+/* Info card --------------------------------------------------------------------- */
+.ch-exoplanets .xo-card {
+  width: min(600px, calc(100vw - 2 * var(--gutter)));
+  max-height: calc(100vh - var(--chrome-h) - 44px - var(--safe-bottom));
+  overflow: auto; scrollbar-width: thin;
+  animation: fadeIn var(--t-med) var(--ease) both;
+}
+.ch-exoplanets .xo-card h3 { padding-right: 40px; }
+.ch-exoplanets .xo-card .kv { margin: 8px 0 0; }
+.ch-exoplanets .xo-card .kv dd { text-align: left; }
+.ch-exoplanets .xo-card .light { font-size: 12.5px; color: var(--text-2); margin: 8px 0 0; }
+.ch-exoplanets .xo-card .light b { color: var(--gold-2); font-weight: 600; }
+.ch-exoplanets .xo-card .sec { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line); }
+.ch-exoplanets .xo-card .sec .panel-title { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.ch-exoplanets .xo-card .sec .panel-title .note { letter-spacing: 0.02em; text-transform: none; font-size: 10px; }
+.ch-exoplanets .xo-card .diagram svg { display: block; width: 100%; height: auto; overflow: visible; }
+.ch-exoplanets .xo-card .diagram text { font-family: var(--font-ui); font-size: 10px; fill: var(--muted); letter-spacing: 0.04em; }
+.ch-exoplanets .xo-card .diagram .pl { fill: var(--text-2); }
+.ch-exoplanets .xo-card .diagram .pl.hz { fill: var(--green); }
+.ch-exoplanets .xo-card .diagram .pl.est { fill: none; stroke: var(--text-2); stroke-width: 1.2; stroke-dasharray: 2 2; }
+.ch-exoplanets .xo-card .diagram .pl.est.hz { stroke: var(--green); }
+.ch-exoplanets .xo-card .diagram .pn { fill: var(--text); font-size: 11px; letter-spacing: 0.06em; text-anchor: middle; }
+.ch-exoplanets .xo-card .diagram .hzband { fill: var(--green); opacity: 0.16; }
+.ch-exoplanets .xo-card .diagram .hzlab { fill: var(--green); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; }
+.ch-exoplanets .xo-card .diagram .earth { stroke: var(--gold); stroke-width: 1; stroke-dasharray: 2 3; }
+.ch-exoplanets .xo-card .diagram .earthlab { fill: var(--gold-2); font-size: 9.5px; text-anchor: middle; }
+.ch-exoplanets .xo-card .diagram .axis { stroke: var(--line-strong); stroke-width: 1; }
+.ch-exoplanets .xo-card .diagram .tick { stroke: var(--line-strong); }
+.ch-exoplanets .xo-card .diagram .ticklab { text-anchor: middle; }
+.ch-exoplanets .xo-card .tbl-wrap { overflow-x: auto; margin: 0 -6px; scrollbar-width: thin; }
+.ch-exoplanets .xo-card table.table { font-size: 12px; white-space: nowrap; }
+.ch-exoplanets .xo-card table.table th { padding: 5px 7px; font-size: 10px; }
+.ch-exoplanets .xo-card table.table td { padding: 6px 7px; }
+.ch-exoplanets .xo-card table.table td.num { text-align: right; }
+.ch-exoplanets .xo-card table.table th.num { text-align: right; }
+.ch-exoplanets .xo-card table.table td .dim { color: var(--muted); }
+.ch-exoplanets .xo-card .hzchip { display: inline-flex; align-items: center; gap: 5px; padding: 1px 7px; border-radius: 999px; font-size: 10px; letter-spacing: 0.06em; color: var(--green); border: 1px solid rgba(139,233,168,0.4); }
+.ch-exoplanets .xo-card .hzchip::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+.ch-exoplanets .xo-card .foot { font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+.ch-exoplanets .xo-card .methodtag { display: inline-flex; align-items: center; gap: 5px; }
+.ch-exoplanets .xo-card .methodtag i { width: 7px; height: 7px; border-radius: 50%; background: var(--c); display: inline-block; }
+
+/* Charts view --------------------------------------------------------------------- */
+.ch-exoplanets .xo-charts {
+  position: absolute; top: calc(var(--chrome-h) + 62px); left: var(--gutter); right: var(--gutter);
+  bottom: calc(16px + var(--safe-bottom));
+  overflow: auto; scrollbar-width: thin; padding: 22px 26px 26px !important;
+  animation: fadeIn var(--t-med) var(--ease) both;
+}
+.ch-exoplanets .xo-charts .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
+.ch-exoplanets .xo-charts h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 3.4vw, 42px); margin: 0; line-height: 1.05; }
+.ch-exoplanets .xo-charts h2 em { font-style: italic; color: var(--gold-2); }
+.ch-exoplanets .xo-charts .head p { margin: 4px 0 0; color: var(--text-2); font-size: 14px; }
+.ch-exoplanets .xo-charts .src { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
+.ch-exoplanets .xo-charts .statrow { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px 22px; padding: 14px 0 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+.ch-exoplanets .xo-charts .statrow .stat .n { font-size: clamp(22px, 2.3vw, 32px); }
+.ch-exoplanets .xo-charts .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ch-exoplanets .fig { position: relative; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 14px 16px 12px; background: rgba(255,255,255,0.02); min-width: 0; }
+.ch-exoplanets .fig.wide { grid-column: 1 / -1; }
+.ch-exoplanets .fig .fhead { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.ch-exoplanets .fig h4 { font-family: var(--font-display); font-weight: 400; font-size: 22px; margin: 0; line-height: 1.1; }
+.ch-exoplanets .fig .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.ch-exoplanets .fig .seg { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; }
+.ch-exoplanets .fig .seg .btn { border-color: transparent; background: transparent; color: var(--text-2); padding: 4px 10px; font-size: 12px; }
+.ch-exoplanets .fig .seg .btn.active { background: rgba(127,211,255,0.14); color: var(--cyan-2); }
+.ch-exoplanets .fig svg { display: block; width: 100%; height: auto; overflow: visible; }
+.ch-exoplanets .fig svg text { font-family: var(--font-ui); font-size: 11px; fill: var(--muted); }
+.ch-exoplanets .fig svg .axis { stroke: var(--line-strong); stroke-width: 1; }
+.ch-exoplanets .fig svg .grid { stroke: var(--line); stroke-width: 1; }
+.ch-exoplanets .fig svg .alab { fill: var(--muted); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+.ch-exoplanets .fig svg .tick { fill: var(--muted); font-variant-numeric: tabular-nums; }
+.ch-exoplanets .fig svg .dot { transition: opacity var(--t-fast); }
+.ch-exoplanets .fig svg .dot.off { opacity: 0.08; }
+.ch-exoplanets .fig svg .dot.hot { stroke: #fff; stroke-width: 1.5; }
+.ch-exoplanets .fig svg .ref { fill: none; stroke: var(--gold-2); stroke-width: 1.5; }
+.ch-exoplanets .fig svg .reflab { fill: var(--gold-2); font-size: 11px; letter-spacing: 0.08em; }
+.ch-exoplanets .fig svg .bar { fill: var(--viz-transit); }
+.ch-exoplanets .fig svg .bar.hot { fill: var(--cyan-2); }
+.ch-exoplanets .fig svg .ms { stroke: var(--gold); stroke-width: 1; }
+.ch-exoplanets .fig svg .mslab { fill: var(--gold-2); font-size: 10.5px; letter-spacing: 0.04em; }
+.ch-exoplanets .fig svg .cap { fill: var(--text-2); font-size: 10.5px; font-variant-numeric: tabular-nums; text-anchor: middle; }
+.ch-exoplanets .fig svg .inlab { fill: #fff; font-size: 11px; font-weight: 600; }
+.ch-exoplanets .fig svg .seglab { fill: var(--text-2); font-size: 11px; }
+.ch-exoplanets .fig svg .hit { fill: transparent; cursor: pointer; }
+.ch-exoplanets .fig .legend { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 8px; align-items: center; }
+.ch-exoplanets .fig .legend .hint { font-size: 11px; color: var(--muted); margin-left: auto; }
+.ch-exoplanets .lg {
+  display: inline-flex; align-items: center; gap: 7px; padding: 4px 9px; border-radius: 999px;
+  border: 1px solid transparent; background: transparent; color: var(--text-2); font-size: 12px; cursor: pointer;
+}
+.ch-exoplanets .lg:hover { background: rgba(255,255,255,0.06); }
+.ch-exoplanets .lg.on { border-color: var(--line-strong); color: var(--text); background: rgba(255,255,255,0.06); }
+.ch-exoplanets .lg.dim { opacity: 0.45; }
+.ch-exoplanets .lg svg { width: 12px; height: 12px; flex: none; }
+.ch-exoplanets .lg b { font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+.ch-exoplanets .lg small { color: var(--muted); }
+.ch-exoplanets .fig .ftable { margin-top: 8px; }
+.ch-exoplanets .fig .ftable .table td.num, .ch-exoplanets .fig .ftable .table th.num { text-align: right; }
+.ch-exoplanets .fig .ftable .table td .sw { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 7px; vertical-align: -1px; background: var(--c); }
+.ch-exoplanets .fig .ftable .scroll { max-height: 260px; }
+.ch-exoplanets .fig .fsrc { font-size: 10.5px; color: var(--muted); margin-top: 8px; letter-spacing: 0.03em; }
+.ch-exoplanets .xo-tip {
+  position: absolute; z-index: 9; pointer-events: none; padding: 8px 11px; font-size: 12px; line-height: 1.4;
+  min-width: 140px; max-width: 260px;
+}
+.ch-exoplanets .xo-tip b { display: block; font-size: 13px; color: var(--text); }
+.ch-exoplanets .xo-tip .row { display: flex; justify-content: space-between; gap: 14px; color: var(--text-2); }
+.ch-exoplanets .xo-tip .row span:last-child { color: var(--text); font-variant-numeric: tabular-nums; }
+.ch-exoplanets .xo-tip .key { display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 6px; background: var(--c); border-radius: 1px; }
+.ch-exoplanets .xo-tip .cta { color: var(--cyan); font-size: 11px; margin-top: 4px; }
+
+/* Responsive --------------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .ch-exoplanets .xo-stats { gap: 16px; }
+  .ch-exoplanets .xo-stats .src { display: none; }
+}
+@media (max-width: 900px) {
+  .ch-exoplanets .xo-charts .grid { grid-template-columns: 1fr; }
+  .ch-exoplanets .xo-hud { display: none; }
+}
+@media (max-width: 720px) {
+  .ch-exoplanets .xo-tabs { top: calc(var(--chrome-h) + 8px); }
+  .ch-exoplanets .xo-filters { top: calc(var(--chrome-h) + 56px); width: calc(100vw - 2 * var(--gutter)); max-height: calc(100vh - var(--chrome-h) - 170px - var(--safe-bottom)); }
+  .ch-exoplanets .xo-filters .fold { display: grid; }
+  .ch-exoplanets .xo-filters.folded { gap: 0; }
+  .ch-exoplanets .xo-filters.folded > :not(.head) { display: none; }
+  .ch-exoplanets .xo-stats { left: var(--gutter); right: var(--gutter); gap: 14px; justify-content: space-between; padding: 10px 14px !important; }
+  .ch-exoplanets .xo-stats .stat .n { font-size: 20px; }
+  .ch-exoplanets .xo-stats .stat .l { font-size: 9.5px; letter-spacing: 0.1em; }
+  .ch-exoplanets .xo-stats .stat:nth-child(n+4) { display: none; }
+  .ch-exoplanets .xo-card { top: auto; bottom: calc(12px + var(--safe-bottom)); right: var(--gutter); left: var(--gutter); width: auto; max-height: 62vh; }
+  .ch-exoplanets .xo-card h3 { font-size: 22px; }
+  .ch-exoplanets .xo-charts { top: calc(var(--chrome-h) + 54px); padding: 16px 14px 18px !important; }
+  .ch-exoplanets .xo-charts .statrow { grid-template-columns: 1fr 1fr; }
+  .ch-exoplanets .fig { padding: 12px 10px; }
+}

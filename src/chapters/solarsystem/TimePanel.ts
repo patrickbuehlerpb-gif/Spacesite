@@ -29,7 +29,8 @@ const ICON_NEXT = '<svg width="14" height="14" viewBox="0 0 14 14" fill="current
 export class TimePanel {
   readonly el: HTMLDivElement;
   private dateEl: HTMLElement; private todEl: HTMLElement; private tzEl: HTMLElement;
-  private playBtn: HTMLButtonElement; private chips: HTMLButtonElement[] = [];
+  private playBtn: HTMLButtonElement; private prevBtn: HTMLButtonElement; private nextBtn: HTMLButtonElement;
+  private chips: HTMLButtonElement[] = [];
   private dateInput: HTMLInputElement; private bdayInput: HTMLInputElement;
   private summaryEl: HTMLElement;
   private fmtDate = new Intl.DateTimeFormat(locale(), { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' });
@@ -47,12 +48,12 @@ export class TimePanel {
     this.dateEl = el('div', 'date'); this.todEl = el('div', 'tod'); this.tzEl = el('div', 'tz');
     clock.append(this.dateEl, this.todEl, this.tzEl);
     const transport = el('div', 'transport');
-    const prev = iconButton(ICON_PREV, () => cb.step(-1), t('solarsystem.stepBack'));
+    this.prevBtn = iconButton(ICON_PREV, () => cb.step(-1), t('solarsystem.stepBack'));
     this.playBtn = iconButton(ICON_PLAY, () => cb.togglePlay(), t('solarsystem.play'));
     this.playBtn.classList.add('play');
-    const next = iconButton(ICON_NEXT, () => cb.step(1), t('solarsystem.stepFwd'));
+    this.nextBtn = iconButton(ICON_NEXT, () => cb.step(1), t('solarsystem.stepFwd'));
     const nowBtn = button(t('solarsystem.now'), () => cb.now(), 'sm');
-    transport.append(prev, this.playBtn, next, nowBtn);
+    transport.append(this.prevBtn, this.playBtn, this.nextBtn, nowBtn);
     row1.append(clock, transport);
 
     // row 2: speed chips
@@ -120,6 +121,9 @@ export class TimePanel {
     if (speedIdx !== this.lastSpeed) {
       this.lastSpeed = speedIdx;
       this.chips.forEach((c, i) => { c.classList.toggle('on', i === speedIdx); c.setAttribute('aria-checked', String(i === speedIdx)); });
+      const unit = t(`solarsystem.unit.${SPEEDS[speedIdx].key}`);
+      this.prevBtn.title = `${t('solarsystem.stepBack')} · −1 ${unit}`; this.prevBtn.setAttribute('aria-label', this.prevBtn.title);
+      this.nextBtn.title = `${t('solarsystem.stepFwd')} · +1 ${unit}`; this.nextBtn.setAttribute('aria-label', this.nextBtn.title);
     }
   }
 
