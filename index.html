@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>KOSMOS – Eine Reise durch echte Daten des Universums</title>
+    <meta name="description" content="Fliege durch 119'000 echte Sterne, 43'000 Galaxien und tausende Exoplaneten. Live-Daten aus dem All, das Sonnensystem in Echtzeit und ein Zoom vom Erdboden bis zum Rand des beobachtbaren Universums." />
+    <meta name="theme-color" content="#05070d" />
+    <meta property="og:title" content="KOSMOS – Eine Reise durch echte Daten des Universums" />
+    <meta property="og:description" content="Interaktive Reise durch echte astronomische Kataloge und Live-Daten aus dem All." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2305070d'/%3E%3Ccircle cx='32' cy='32' r='9' fill='%23f2c46d'/%3E%3Cellipse cx='32' cy='32' rx='26' ry='8' fill='none' stroke='%237fd3ff' stroke-width='2' transform='rotate(-25 32 32)'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <canvas id="gl" aria-hidden="true"></canvas>
+    <div id="ui"></div>
+    <div id="chrome"></div>
+    <div id="fade"></div>
+    <div id="loading" role="status" aria-live="polite">
+      <div class="loading-inner">
+        <div class="loading-title">KOSMOS</div>
+        <div class="loading-bar"><div class="loading-fill"></div></div>
+        <div class="loading-text">Lade Sternkatalog …</div>
+      </div>
+    </div>
+    <noscript>Diese Seite braucht JavaScript und WebGL.</noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

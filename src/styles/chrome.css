@@ -1,0 +1,41 @@
+/* Global chrome: top bar, nav, language switch, credits modal */
+.topbar {
+  position: absolute; inset: 0 0 auto 0;
+  height: var(--chrome-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--gutter);
+  background: linear-gradient(to bottom, rgba(5,7,13,0.75), rgba(5,7,13,0));
+}
+.brand {
+  font-family: var(--font-display);
+  font-size: 22px; letter-spacing: 0.3em; color: var(--gold-2);
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+}
+.brand small { font-family: var(--font-ui); font-size: 10px; letter-spacing: 0.2em; color: var(--muted); }
+.nav { display: flex; gap: 2px; align-items: center; }
+.nav a {
+  padding: 8px 12px; border-radius: 999px;
+  font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-2);
+  transition: color var(--t-fast), background var(--t-fast);
+}
+.nav a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+.nav a.active { color: var(--gold-2); background: rgba(242,196,109,0.12); }
+.nav .lang { margin-left: 8px; font-variant-numeric: tabular-nums; }
+.nav-toggle { display: none; }
+
+.credits-modal {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  background: rgba(5,7,13,0.7); animation: fadeIn var(--t-med) var(--ease) both;
+}
+.credits-modal .panel { width: min(680px, calc(100vw - 2*var(--gutter))); max-height: 80vh; padding: 24px 28px; position: relative; }
+.credits-modal h2 { font-family: var(--font-display); font-weight: 400; font-size: 32px; margin: 0 0 12px; }
+.credits-modal h4 { margin: 18px 0 6px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.credits-modal ul { margin: 0; padding-left: 18px; color: var(--text-2); font-size: 13px; }
+.credits-modal li { margin: 4px 0; }
+
+/* Mobile nav */
+@media (max-width: 900px) {
+  .nav { display: none; position: absolute; top: var(--chrome-h); right: var(--gutter); flex-direction: column; align-items: stretch; padding: 8px; }
+  .nav.open { display: flex; }
+  .nav-toggle { display: grid; }
+}

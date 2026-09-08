@@ -1,0 +1,26 @@
+{
+  "name": "kosmos",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Interaktive Reise durch echte Daten des Universums",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "typecheck": "tsc --noEmit",
+    "data": "node scripts/build-all.mjs",
+    "shot": "node scripts/shot.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/manrope": "5.3.0",
+    "@fontsource/instrument-serif": "5.3.0",
+    "three": "0.185.1"
+  },
+  "devDependencies": {
+    "@types/three": "0.185.4",
+    "playwright": "1.63.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.6"
+  }
+}

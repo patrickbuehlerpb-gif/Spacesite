@@ -1,0 +1,46 @@
+/* KOSMOS design tokens – dark, cinematic, "BBC Universe" feel.
+   Every chapter uses these; never hardcode colors in chapter code. */
+:root {
+  /* Surfaces */
+  --bg: #05070d;
+  --bg-2: #0b1020;
+  --panel: rgba(9, 13, 24, 0.62);
+  --panel-strong: rgba(9, 13, 24, 0.86);
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.18);
+
+  /* Text */
+  --text: #e9edf5;
+  --text-2: #aab3c5;
+  --muted: #7d8799;
+
+  /* Accents */
+  --gold: #f2c46d;       /* warm highlight: numbers, CTAs, the Sun */
+  --gold-2: #ffdd9a;
+  --cyan: #7fd3ff;       /* cool highlight: links, selections, hot stars */
+  --cyan-2: #b8e8ff;
+  --rose: #ff8aa6;       /* warnings, red giants, danger */
+  --green: #8be9a8;      /* live / ok indicators */
+  --violet: #b89cff;     /* galaxies, deep space */
+
+  /* Typography */
+  --font-ui: 'Manrope Variable', 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+
+  /* Shape */
+  --radius: 14px;
+  --radius-sm: 8px;
+  --blur: 14px;
+  --shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+
+  /* Layout */
+  --chrome-h: 56px;
+  --gutter: clamp(16px, 3vw, 40px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 160ms;
+  --t-med: 320ms;
+  --t-slow: 700ms;
+}
