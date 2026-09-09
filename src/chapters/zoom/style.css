@@ -148,3 +148,11 @@
 @media (max-width: 480px), (max-height: 520px) {
   .ch-zoom .zm-ruler { display: none; }
 }
+
+/* label hidden by the projector (off-screen, out of window or decluttered) */
+.ch-zoom .zm-lbl.off { opacity: 0 !important; pointer-events: none !important; }
+.ch-zoom .zm-lbl.big.centre { transform-origin: 0 50%; }
+.ch-zoom .zm-card .kick .ms-n { color: var(--text-2); font-weight: 600; letter-spacing: 0.06em; text-transform: none; font-variant-numeric: tabular-nums; }
+.ch-zoom .zm-card .kick .ms-n sup { font-size: 0.75em; vertical-align: 0.4em; }
+.ch-zoom .zm-readout .stat .n { line-height: 1.15; }
+.ch-zoom .zm-readout .stat .l { margin-top: 2px; }

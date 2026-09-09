@@ -234,3 +234,28 @@ registerStrings('zoom', {
   'ms.universe.title': 'Observable <em>Universe</em>', 'ms.universe.num': '46.5 billion light-years', 'ms.universe.label': 'Radius',
   'ms.universe.txt': 'The limit: the cosmic microwave background, light from 380,000 years after the Big Bang. No telescope can see beyond it – some 2 trillion galaxies lie inside this sphere.',
 });
+
+// Additional strings (labels for schematic structures, object kinds, info-card rows)
+registerStrings('zoom', {
+  'lbl.web': 'Kosmisches Netz', 'lbl.lss': 'Grossräumige Struktur',
+  'obj.web': 'Jenseits der 2MRS-Karte zeigt die Darstellung ein Muster, keinen Katalog: Galaxien sammeln sich in Filamenten und Wänden um riesige Leerräume – das kosmische Netz, wie Simulationen und tiefere Durchmusterungen es zeigen.',
+  'obj.lss': 'Auf den grössten Skalen ist das Universum ein Schaum aus Filamenten und Leerräumen, Hunderte Millionen Lichtjahre gross – und darüber hinaus fast vollkommen gleichförmig. Darstellung schematisch.',
+  'kind.planet': 'Planet', 'kind.dwarf': 'Zwergplanet', 'kind.moon': 'Mond', 'kind.star': 'Stern', 'kind.probe': 'Raumsonde',
+  'kind.station': 'Raumstation · 418 km', 'kind.satellites': 'Satellitennavigation', 'kind.orbit': 'Umlaufbahn', 'kind.marker': 'Massstab',
+  'kind.region': 'Region', 'kind.cluster': 'Offener Sternhaufen', 'kind.nebula': 'Emissionsnebel', 'kind.galaxy': 'Galaxie',
+  'kind.galcluster': 'Galaxienhaufen', 'kind.supercluster': 'Superhaufen', 'kind.void': 'Leerraum', 'kind.wall': 'Galaxienwand',
+  'kind.blackhole': 'Supermassereiches Schwarzes Loch', 'kind.cmb': 'Das älteste Licht', 'kind.web': 'Schematische Darstellung',
+  rowSpect: 'Spektralklasse', rowMag: 'Scheinbare Helligkeit', rowStars: 'Sterne', rowMass: 'Masse', rowTemp: 'Temperatur',
+  webHint: 'Ausserhalb der Karte: schematisch',
+}, {
+  'lbl.web': 'Cosmic web', 'lbl.lss': 'Large-scale structure',
+  'obj.web': 'Beyond the 2MRS map the rendering shows a pattern, not a catalogue: galaxies gather in filaments and walls around vast voids – the cosmic web as simulations and deeper surveys reveal it.',
+  'obj.lss': 'On the largest scales the universe is a foam of filaments and voids hundreds of millions of light-years across – and beyond that almost perfectly uniform. Schematic rendering.',
+  'kind.planet': 'Planet', 'kind.dwarf': 'Dwarf planet', 'kind.moon': 'Moon', 'kind.star': 'Star', 'kind.probe': 'Space probe',
+  'kind.station': 'Space station · 418 km', 'kind.satellites': 'Satellite navigation', 'kind.orbit': 'Orbit', 'kind.marker': 'Scale marker',
+  'kind.region': 'Region', 'kind.cluster': 'Open cluster', 'kind.nebula': 'Emission nebula', 'kind.galaxy': 'Galaxy',
+  'kind.galcluster': 'Galaxy cluster', 'kind.supercluster': 'Supercluster', 'kind.void': 'Void', 'kind.wall': 'Galaxy wall',
+  'kind.blackhole': 'Supermassive black hole', 'kind.cmb': 'The oldest light', 'kind.web': 'Schematic rendering',
+  rowSpect: 'Spectral class', rowMag: 'Apparent magnitude', rowStars: 'Stars', rowMass: 'Mass', rowTemp: 'Temperature',
+  webHint: 'Beyond the map: schematic',
+});
