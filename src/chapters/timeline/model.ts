@@ -1,4 +1,4 @@
-import { SEC_PER_YEAR, fmtNum, fmtYears, clamp, lerp } from '../../core/units';
+import { SEC_PER_YEAR, fmtNum, fmtYears, fmtKm, clamp, lerp } from '../../core/units';
 import { lang, locale } from '../../core/i18n';
 import { T0, T0_YR, type TlEvent } from './events';
 
@@ -161,10 +161,9 @@ export function fmtRadius(ly: number): string {
   if (ly >= 1e12) return `${fmtNum(ly / 1e12, { maxDigits: 1 })} ${de ? 'Bio. Lj' : 'trillion ly'}`;
   if (ly >= 1e9) return `${fmtNum(ly / 1e9, { maxDigits: 1 })} ${de ? 'Mrd. Lj' : 'billion ly'}`;
   if (ly >= 1e6) return `${fmtNum(ly / 1e6, { maxDigits: 1 })} ${de ? 'Mio. Lj' : 'million ly'}`;
-  if (ly >= 1) return `${fmtNum(ly, { maxDigits: ly < 10 ? 1 : 0 })} ${de ? 'Lj' : 'ly'}`;
+  if (ly >= 0.05) return `${fmtNum(ly, { maxDigits: ly < 10 ? 2 : ly < 100 ? 1 : 0 })} ${de ? 'Lj' : 'ly'}`;
   const m = ly * M_PER_LY;
-  if (m >= 1e9) return `${fmtNum(m / 1e9, { maxDigits: 1 })} ${de ? 'Mio. km' : 'million km'}`;
-  if (m >= 1e3) return `${fmtNum(m / 1e3, { maxDigits: m < 1e4 ? 1 : 0 })} km`;
+  if (m >= 1e3) return fmtKm(m / 1e3);                       // km → Mio. km → AE
   if (m >= 1) return `${fmtNum(m, { maxDigits: 1 })} m`;
   if (m >= 1e-2) return `${fmtNum(m * 100, { maxDigits: 1 })} cm`;
   if (m >= 1e-3) return `${fmtNum(m * 1000, { maxDigits: 1 })} mm`;

@@ -24,7 +24,9 @@ export function fmtNum(n: number, opts: NumOpts = {}): string {
     maximumFractionDigits: maxDigits ?? digits ?? (Math.abs(n) < 10 ? 2 : Math.abs(n) < 100 ? 1 : 0),
     notation: compact ? 'compact' : 'standard',
   });
-  return f.format(n);
+  const out = f.format(n);
+  // de-CH gives 109’400.5 – keep the apostrophe thousands but use the comma decimal that all texts use.
+  return lang() === 'de' ? out.replace(/\.(?=\d)/g, ',') : out;
 }
 
 /** Scientific-ish formatting for huge/tiny numbers, e.g. "1,5 × 10^22". Returns HTML. */
