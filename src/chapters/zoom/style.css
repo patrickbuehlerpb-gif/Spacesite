@@ -1,0 +1,150 @@
+/* Zoom chapter – every selector prefixed with .ch-zoom */
+
+.ch-zoom .zm-catch { position: absolute; inset: 0; touch-action: none; z-index: 1; cursor: grab; }
+.ch-zoom .zm-catch.drag { cursor: grabbing; }
+.ch-zoom .zm-labels { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
+.ch-zoom > .panel, .ch-zoom > .info-card, .ch-zoom > .toast, .ch-zoom > .zm-slider, .ch-zoom > .zm-ruler { z-index: 3; }
+.ch-zoom > .intro { z-index: 10; }
+.ch-zoom .intro-card .btn + .btn { margin-left: 10px; }
+
+/* In-scene labels (own projector, no CSS2DRenderer) ------------------------- */
+.ch-zoom .zm-lbl {
+  position: absolute; left: 0; top: 0; margin: 0; padding: 2px 6px 2px 14px;
+  appearance: none; border: 0; background: transparent; text-align: left;
+  font: inherit; font-size: 12px; letter-spacing: 0.08em; color: var(--text); line-height: 1.2;
+  text-shadow: 0 0 6px rgba(0,0,0,0.95), 0 0 2px rgba(0,0,0,1);
+  white-space: nowrap; cursor: pointer; border-radius: 6px; will-change: transform, opacity;
+  transition: color var(--t-fast);
+}
+.ch-zoom .zm-lbl::before {
+  content: ''; position: absolute; left: 0; top: 50%; width: 8px; height: 1px; background: currentColor; opacity: 0.7;
+}
+.ch-zoom .zm-lbl:hover { color: var(--cyan-2); }
+.ch-zoom .zm-lbl.dim { color: var(--text-2); font-size: 11px; }
+.ch-zoom .zm-lbl.gold { color: var(--gold-2); }
+.ch-zoom .zm-lbl.cyan { color: var(--cyan-2); }
+.ch-zoom .zm-lbl.violet { color: var(--violet); }
+.ch-zoom .zm-lbl.rose { color: var(--rose); }
+.ch-zoom .zm-lbl.big { font-family: var(--font-display); font-size: 20px; letter-spacing: 0.04em; padding-left: 0; }
+.ch-zoom .zm-lbl.big::before { display: none; }
+.ch-zoom .zm-lbl .sub { display: block; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+.ch-zoom .zm-lbl.big .sub { font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.16em; margin-top: 2px; }
+.ch-zoom .zm-lbl.centre { padding-left: 12px; }
+
+/* Top-centre readout ------------------------------------------------------------ */
+.ch-zoom .zm-readout {
+  display: flex; align-items: stretch; gap: 22px; padding: 10px 20px 9px; white-space: nowrap;
+}
+.ch-zoom .zm-readout .stat { min-width: 0; }
+.ch-zoom .zm-readout .stat .n { font-size: 26px; white-space: nowrap; }
+.ch-zoom .zm-readout .stat .n sup { font-size: 0.55em; vertical-align: 0.6em; letter-spacing: 0; }
+.ch-zoom .zm-readout .stat .n.cyan { color: var(--cyan-2); }
+.ch-zoom .zm-readout .div { width: 1px; background: var(--line-strong); align-self: stretch; }
+.ch-zoom .zm-readout .src { position: absolute; left: 20px; bottom: -18px; font-size: 10px; color: var(--muted); letter-spacing: 0.04em; white-space: nowrap; }
+
+/* Ruler (bottom-left) ----------------------------------------------------------- */
+.ch-zoom .zm-ruler {
+  position: absolute; left: var(--gutter); bottom: calc(22px + var(--safe-bottom));
+  display: flex; flex-direction: column; gap: 6px; pointer-events: none;
+}
+.ch-zoom .zm-ruler .bar { position: relative; height: 9px; width: 200px; }
+.ch-zoom .zm-ruler .bar::before { content: ''; position: absolute; left: 0; right: 0; top: 4px; height: 1px; background: var(--gold-2); box-shadow: 0 0 6px rgba(242,196,109,0.6); }
+.ch-zoom .zm-ruler .bar::after, .ch-zoom .zm-ruler .bar i { content: ''; position: absolute; top: 0; width: 1px; height: 9px; background: var(--gold-2); }
+.ch-zoom .zm-ruler .bar::after { right: 0; }
+.ch-zoom .zm-ruler .bar i { left: 0; }
+.ch-zoom .zm-ruler .txt { font-size: 12px; letter-spacing: 0.08em; color: var(--gold-2); font-variant-numeric: tabular-nums; text-shadow: 0 0 8px rgba(0,0,0,0.9); }
+.ch-zoom .zm-ruler .txt small { color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; font-size: 10px; margin-left: 8px; }
+
+/* Vertical log slider (right) ----------------------------------------------------- */
+.ch-zoom .zm-slider {
+  position: absolute; right: var(--gutter); top: calc(var(--chrome-h) + 34px); bottom: calc(96px + var(--safe-bottom));
+  width: 210px; touch-action: none; user-select: none;
+}
+.ch-zoom .zm-slider .track { position: absolute; right: 44px; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.18); border-radius: 2px; }
+.ch-zoom .zm-slider .fill { position: absolute; right: 44px; bottom: 0; width: 2px; background: linear-gradient(to top, var(--gold), var(--cyan)); border-radius: 2px; }
+.ch-zoom .zm-slider .hit { position: absolute; right: 24px; top: -8px; bottom: -8px; width: 42px; cursor: ns-resize; }
+.ch-zoom .zm-slider .thumb {
+  position: absolute; right: 38px; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%;
+  background: var(--gold); border: 2px solid #1a1204; box-shadow: 0 0 0 4px rgba(242,196,109,0.18), 0 0 12px rgba(242,196,109,0.5);
+  pointer-events: none;
+}
+.ch-zoom .zm-slider .dec { position: absolute; right: 0; width: 36px; margin-top: -7px; font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; letter-spacing: 0.04em; line-height: 14px; text-shadow: 0 0 6px rgba(0,0,0,0.9); }
+.ch-zoom .zm-slider .dec sup { font-size: 0.75em; vertical-align: 0.4em; }
+.ch-zoom .zm-slider .dec::before { content: ''; position: absolute; left: -12px; top: 7px; width: 6px; height: 1px; background: rgba(255,255,255,0.28); }
+.ch-zoom .zm-slider .tick {
+  position: absolute; right: 58px; margin-top: -9px; padding: 2px 8px 2px 6px; appearance: none; border: 0; background: transparent;
+  font: inherit; font-size: 11px; letter-spacing: 0.08em; color: var(--text-2); cursor: pointer; text-align: right; line-height: 14px; border-radius: 6px;
+  text-shadow: 0 0 6px rgba(0,0,0,0.95); white-space: nowrap; transition: color var(--t-fast), background var(--t-fast);
+}
+.ch-zoom .zm-slider .tick::after { content: ''; position: absolute; right: -16px; top: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--text-2); opacity: 0.8; transition: background var(--t-fast), transform var(--t-fast); }
+.ch-zoom .zm-slider .tick:hover { color: var(--cyan-2); background: rgba(255,255,255,0.06); }
+.ch-zoom .zm-slider .tick:hover::after { background: var(--cyan-2); }
+.ch-zoom .zm-slider .tick.on { color: var(--gold-2); }
+.ch-zoom .zm-slider .tick.on::after { background: var(--gold-2); transform: scale(1.3); }
+
+/* Journey bar (bottom-centre) ------------------------------------------------------ */
+.ch-zoom .zm-journey { display: flex; align-items: center; gap: 10px; padding: 8px 10px 8px 8px; }
+.ch-zoom .zm-journey .play { padding: 8px 14px 8px 11px; }
+.ch-zoom .zm-journey .play svg { flex: none; }
+.ch-zoom .zm-journey .speeds { display: flex; gap: 4px; }
+.ch-zoom .zm-journey .speeds .chip { padding: 4px 8px; font-size: 11px; font-variant-numeric: tabular-nums; }
+.ch-zoom .zm-journey .speeds .chip .dot { display: none; }
+.ch-zoom .zm-journey .lab { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-left: 4px; }
+.ch-zoom .zm-journey .sep { width: 1px; height: 18px; background: var(--line-strong); }
+
+/* Milestone card (bottom-right) ---------------------------------------------------- */
+.ch-zoom .zm-card {
+  position: absolute; right: var(--gutter); bottom: calc(20px + var(--safe-bottom)); width: min(340px, calc(100vw - 2 * var(--gutter)));
+  padding: 14px 18px 12px; opacity: 0; transform: translateY(10px); pointer-events: none;
+  transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease);
+}
+.ch-zoom .zm-card.on { opacity: 1; transform: none; pointer-events: auto; }
+.ch-zoom .zm-card .kick { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; display: flex; justify-content: space-between; gap: 10px; }
+.ch-zoom .zm-card .kick b { color: var(--text-2); font-weight: 600; letter-spacing: 0.06em; text-transform: none; font-variant-numeric: tabular-nums; }
+.ch-zoom .zm-card .kick b sup { font-size: 0.75em; vertical-align: 0.4em; }
+.ch-zoom .zm-card h3 { font-family: var(--font-display); font-weight: 400; font-size: 30px; line-height: 1.05; margin: 0 0 8px; }
+.ch-zoom .zm-card h3 em { font-style: italic; color: var(--gold-2); }
+.ch-zoom .zm-card .stat { margin: 4px 0 8px; }
+.ch-zoom .zm-card .stat .n { font-size: 26px; }
+.ch-zoom .zm-card p { margin: 0; font-size: 13px; color: var(--text-2); line-height: 1.5; }
+.ch-zoom .zm-card .src { font-size: 10px; color: var(--muted); letter-spacing: 0.04em; margin-top: 8px; }
+.ch-zoom .zm-card .prog { position: absolute; left: 18px; right: 18px; bottom: 6px; height: 1px; background: rgba(255,255,255,0.08); }
+.ch-zoom .zm-card .prog i { display: block; height: 100%; width: 0; background: var(--gold); }
+.ch-zoom .zm-card.on .prog.run i { animation: zmProg 3s linear both; }
+@keyframes zmProg { from { width: 0; } to { width: 100%; } }
+
+/* Info card (object details) --------------------------------------------------------- */
+.ch-zoom .info-card p { margin: 10px 0 0; }
+.ch-zoom .info-card .kv { margin-top: 4px; }
+.ch-zoom .info-card .src { font-size: 10px; color: var(--muted); letter-spacing: 0.04em; margin-top: 10px; }
+
+/* Responsive --------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .ch-zoom .zm-slider { width: 60px; }
+  .ch-zoom .zm-slider .tick { display: none; }
+  .ch-zoom .zm-readout { gap: 14px; padding: 8px 14px 6px; }
+  .ch-zoom .zm-readout .stat .n { font-size: 20px; }
+  .ch-zoom .zm-readout .stat .l { font-size: 9px; letter-spacing: 0.1em; }
+  .ch-zoom .zm-readout .src { display: none; }
+}
+@media (max-width: 720px) {
+  .ch-zoom .zm-readout { max-width: calc(100vw - 2 * var(--gutter)); gap: 10px; }
+  .ch-zoom .zm-readout .stat .n { font-size: 17px; }
+  .ch-zoom .zm-card { right: var(--gutter); left: var(--gutter); width: auto; bottom: calc(74px + var(--safe-bottom)); padding: 12px 14px 10px; }
+  .ch-zoom .zm-card h3 { font-size: 24px; }
+  .ch-zoom .zm-card p { font-size: 12px; }
+  .ch-zoom .zm-card .stat .n { font-size: 22px; }
+  .ch-zoom .zm-journey { gap: 6px; padding: 6px 8px; }
+  .ch-zoom .zm-journey .lab { display: none; }
+  .ch-zoom .zm-journey .sep { display: none; }
+  .ch-zoom .zm-slider { top: calc(var(--chrome-h) + 76px); bottom: calc(150px + var(--safe-bottom)); width: 44px; right: 8px; }
+  .ch-zoom .zm-slider .dec { width: 30px; font-size: 9px; }
+  .ch-zoom .zm-slider .track, .ch-zoom .zm-slider .fill { right: 36px; }
+  .ch-zoom .zm-slider .thumb { right: 30px; }
+  .ch-zoom .zm-slider .hit { right: 16px; }
+  .ch-zoom .info-card.pos-tl { top: calc(var(--chrome-h) + 74px); }
+  .ch-zoom .zm-lbl.big { font-size: 16px; }
+}
+@media (max-width: 480px), (max-height: 520px) {
+  .ch-zoom .zm-ruler { display: none; }
+}
