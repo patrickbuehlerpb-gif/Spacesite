@@ -36,10 +36,10 @@ export async function buildGalaxyLayer(b: BuildCtx, landmarks: Landmark[]): Prom
     const col = pal[Math.min(4, cat.type[i])];
     cols[i * 3] = col[0]; cols[i * 3 + 1] = col[1]; cols[i * 3 + 2] = col[2];
     const bright = Math.max(0, Math.min(1, (11.75 - cat.kmag[i]) / 7.75));
-    px[i] = 1.9 + 3.8 * bright;
-    br[i] = (0.5 + 0.5 * bright) * (1 - smoothstep(380, 460, cat.dist[i]));
+    px[i] = 2.5 + 4.6 * bright;
+    br[i] = (0.78 + 0.22 * bright) * (1 - smoothstep(380, 460, cat.dist[i]));
   }
-  const gal = createCloud({ positions: cat.pos, colors: cols, minPx: px, bright: br, px: 0, maxPx: 6.5, alpha: 1 });
+  const gal = createCloud({ positions: cat.pos, colors: cols, minPx: px, bright: br, px: 0, maxPx: 8.5, alpha: 1 });
   S.add(gal.points); L.fades.push(gal.setAlpha); L.proj.push(gal.setProj);
 
   // Milky Way marker at the origin
@@ -51,7 +51,7 @@ export async function buildGalaxyLayer(b: BuildCtx, landmarks: Landmark[]): Prom
   const wn = web.b.length, wsz = new Float32Array(wn), wcol = new Float32Array(wn * 3);
   const wc0 = mixRgb(c.violet, c.text2, 0.5), wc1 = mixRgb(c.cyan2, c.violet, 0.5);
   for (let i = 0; i < wn; i++) { wsz[i] = 2.2 + 3 * web.b[i]; const k = (i * 7919) % 100 / 100; const cc = mixRgb(wc0, wc1, k); wcol[i * 3] = cc[0]; wcol[i * 3 + 1] = cc[1]; wcol[i * 3 + 2] = cc[2]; }
-  const webPts = createCloud({ positions: web.pos, sizes: wsz, colors: wcol, bright: web.b, minPx: 1.2, maxPx: 3.5, alpha: 0.55 });
+  const webPts = createCloud({ positions: web.pos, sizes: wsz, colors: wcol, bright: web.b, minPx: 1.6, maxPx: 4.2, alpha: 0.75 });
   S.add(webPts.points); L.proj.push(webPts.setProj);
 
   // labels: landmarks (clusters, superclusters, voids, walls) with distance-dependent windows

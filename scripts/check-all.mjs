@@ -7,7 +7,7 @@ const routes = [['', 'home'], ['sterne', 'stars'], ['sonnensystem', 'solarsystem
 let failed = 0;
 for (const [route, id] of routes) {
   for (const variant of [[], ['--mobile'], ['--lang', 'en']]) {
-    const args = [resolve(here, 'shot.mjs'), `#/${route}`, `shots/check-${id}${variant.includes('--mobile') ? '-mobile' : variant.includes('en') ? '-en' : ''}.png`, '--wait', '2000', '--mock', '--click', '.btn.primary', ...variant];
+    const args = [resolve(here, 'shot.mjs'), `#/${route}`, `shots/check-${id}${variant.includes('--mobile') ? '-mobile' : variant.includes('en') ? '-en' : ''}.png`, '--wait', '2000', '--mock', '--key', 'Enter', ...variant];
     try {
       const out = execFileSync('node', args, { encoding: 'utf8', timeout: 180000 });
       console.log(`✓ ${id} ${variant.join(' ')}\n${out.trim().split('\n').filter((l) => l.startsWith('[')).join('\n')}`);
