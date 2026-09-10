@@ -6,7 +6,7 @@ import { spectralClassFromBv } from '../../core/color';
 import { loadStarCatalog, loadStarNames, loadConstellations, type StarCatalog, type Constellation } from '../../data/stars';
 import { makeLayer, type LayerBuild, type LabelSpec, type ObjectInfo } from './model';
 import { createMilkyWay } from './MilkyWay';
-import { createCloud, createShell, galaxyTexture, rng, gaussian, mixRgb, window01, fmtLy, M_PER_PC, M_PER_KPC, M_PER_MPC, DEG, type RGB } from './util';
+import { createCloud, createShell, galaxyTexture, glowTexture, rng, gaussian, mixRgb, window01, fmtLy, M_PER_PC, M_PER_KPC, M_PER_MPC, DEG, type RGB } from './util';
 import type { BuildCtx } from './LayersNear';
 
 /** Galaxy landmark record (public/data/galaxy-landmarks.json). */
@@ -70,9 +70,10 @@ export async function buildStarLayer(b: BuildCtx): Promise<LayerBuild> {
   const S = L.scene;
   const c = b.colors;
 
-  const stars = createStarPoints(cat.pos, cat.absMag, colorsFromBv(cat.ci), { size: 8, maxSize: 48, depthTest: false });
+  const stars = createStarPoints(cat.pos, cat.absMag, colorsFromBv(cat.ci), { size: 16, maxSize: 40, depthTest: false });
   S.add(stars);
   const su = starUniforms(stars.material);
+  su.uTex.value = glowTexture();                              // own no-mipmap sprite (see util.noMips)
   L.fades.push((k) => { su.uAlpha.value = k; });
 
   // the Sun (not in the catalogue): a marker that appears once we are well outside the solar system
@@ -88,7 +89,7 @@ export async function buildStarLayer(b: BuildCtx): Promise<LayerBuild> {
   const rand = rng(1950), gauss = gaussian(rand);
   const rMin = 2000 / 206265, rMax = 100000 / 206265;
   for (let i = 0; i < NO; i++) {
-    const r = rMin * (rMax / rMin) ** rand();
+    const r = rMin * (rMax / rMin) ** (rand() ** 0.55);
     const z = 2 * rand() - 1, ph = rand() * Math.PI * 2, s = Math.sqrt(1 - z * z);
     opos[i * 3] = r * s * Math.cos(ph); opos[i * 3 + 1] = r * s * Math.sin(ph); opos[i * 3 + 2] = r * z;
     ob[i] = 0.3 + 0.7 * rand() * rand();
@@ -128,7 +129,7 @@ export async function buildStarLayer(b: BuildCtx): Promise<LayerBuild> {
   // labels
   const labels: LabelSpec[] = [
     { id: 'sunStar', pos: new THREE.Vector3(), text: t('zoom.lbl.sun'), cls: 'gold', lo: 13.65, hi: 19.9, prio: 0 },
-    { id: 'oort', pos: new THREE.Vector3(0.25, 0.15, 0.3).normalize().multiplyScalar(0.32), text: t('zoom.lbl.oort'), sub: t('zoom.lbl.oortSub'), cls: 'dim', lo: 15.0, hi: 17.4, prio: 5 },
+    { id: 'oort', pos: new THREE.Vector3(0.25, 0.15, 0.3).normalize().multiplyScalar(0.06), text: t('zoom.lbl.oort'), sub: t('zoom.lbl.oortSub'), cls: 'dim', lo: 14.9, hi: 17.3, prio: 5 },
     { id: 'radio', pos: new THREE.Vector3(0.6, -0.5, 0.35).normalize().multiplyScalar(RADIO), text: t('zoom.lbl.radio'), sub: t('zoom.lbl.radioSub'), cls: 'cyan', lo: 17.2, hi: 19.7, prio: 2 },
     { id: 'orion', pos: axis.clone().multiplyScalar(750), text: t('zoom.lbl.orion'), cls: 'cyan', lo: 19.0, hi: 20.5, prio: 3 },
     { id: 'pleiades', pos: plePos, text: t('zoom.lbl.pleiades'), cls: 'dim', lo: 17.9, hi: 20.2, prio: 6 },
@@ -166,8 +167,8 @@ export async function buildStarLayer(b: BuildCtx): Promise<LayerBuild> {
   L.update = (_dt, logD) => {
     const k = L.opacity;
     // brighten the catalogue as we leave it behind, but cap the big blobs
-    su.uMagOffset.value = clamp(-(logD - 17.0) * 3.2, -12, 0);
-    su.uMaxSize.value = lerp(48, 7, smoothstep(16, 19.5, logD));
+    su.uMagOffset.value = clamp(-(logD - 17.0) * 3.2, -12, 0) - 1.6;
+    su.uMaxSize.value = lerp(40, 7, smoothstep(16, 19.5, logD));
     sunPt.setAlpha(k * smoothstep(13.3, 13.9, logD));
     lines.material.opacity = 0.22 * k * (1 - smoothstep(16.2, 17.4, logD));
     oort.setAlpha(k * window01(logD, 14.3, 18.2, 0.7));

@@ -54,6 +54,8 @@ export function window01(x: number, lo: number, hi: number, w = 0.5): number {
 // ---------------------------------------------------------------------------------------------
 // Procedural textures (cached)
 // ---------------------------------------------------------------------------------------------
+/** Point sprites are sampled at 1–10 px: skip the mip chain (broken on some software GL stacks, unnecessary for a smooth blob). */
+function noMips(t: THREE.Texture): void { t.generateMipmaps = false; t.minFilter = THREE.LinearFilter; t.magFilter = THREE.LinearFilter; }
 let glowTex: THREE.Texture | null = null;
 /** Soft radial glow (for point sprites and glows). */
 export function glowTexture(): THREE.Texture {
@@ -69,6 +71,7 @@ export function glowTexture(): THREE.Texture {
   g.fillStyle = grad; g.fillRect(0, 0, s, s);
   glowTex = new THREE.CanvasTexture(c);
   glowTex.colorSpace = THREE.SRGBColorSpace;
+  noMips(glowTex);
   return glowTex;
 }
 
@@ -88,6 +91,7 @@ export function galaxyTexture(): THREE.Texture {
   g.fillStyle = grad; g.fillRect(-s / 2, -s / 2, s, s);
   galTex = new THREE.CanvasTexture(c);
   galTex.colorSpace = THREE.SRGBColorSpace;
+  noMips(galTex);
   return galTex;
 }
 

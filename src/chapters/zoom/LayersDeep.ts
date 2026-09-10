@@ -36,10 +36,10 @@ export async function buildGalaxyLayer(b: BuildCtx, landmarks: Landmark[]): Prom
     const col = pal[Math.min(4, cat.type[i])];
     cols[i * 3] = col[0]; cols[i * 3 + 1] = col[1]; cols[i * 3 + 2] = col[2];
     const bright = Math.max(0, Math.min(1, (11.75 - cat.kmag[i]) / 7.75));
-    px[i] = 1.4 + 3.6 * bright;
-    br[i] = (0.4 + 0.6 * bright) * (1 - smoothstep(380, 460, cat.dist[i]));
+    px[i] = 1.9 + 3.8 * bright;
+    br[i] = (0.5 + 0.5 * bright) * (1 - smoothstep(380, 460, cat.dist[i]));
   }
-  const gal = createCloud({ positions: cat.pos, colors: cols, minPx: px, bright: br, px: 0, maxPx: 6, alpha: 0.85 });
+  const gal = createCloud({ positions: cat.pos, colors: cols, minPx: px, bright: br, px: 0, maxPx: 6.5, alpha: 1 });
   S.add(gal.points); L.fades.push(gal.setAlpha); L.proj.push(gal.setProj);
 
   // Milky Way marker at the origin
@@ -87,6 +87,7 @@ export async function buildGalaxyLayer(b: BuildCtx, landmarks: Landmark[]): Prom
 // =============================================================================================
 // 6. Universe (unit 1e24 m; window 24.5 – 26.7): large-scale structure + the CMB sphere
 // =============================================================================================
+const side = new THREE.Vector3(), up = new THREE.Vector3();
 export function buildUniverseLayer(b: BuildCtx): LayerBuild {
   const L = makeLayer('universe', 1e24, 24.5, 26.7, 'zoom.srcCmb', { hardHi: true });
   const S = L.scene;
@@ -117,7 +118,11 @@ export function buildUniverseLayer(b: BuildCtx): LayerBuild {
   const labels: LabelSpec[] = [
     { id: 'mwHere3', pos: new THREE.Vector3(), text: t('zoom.lbl.mw'), sub: t('zoom.lbl.here'), cls: 'cyan', lo: 25.4, hi: 26.7, prio: 0 },
     { id: 'lss', pos: new THREE.Vector3(outer.pos[30], outer.pos[31], outer.pos[32]), text: t('zoom.lbl.lss'), sub: t('zoom.schematic'), cls: 'dim', lo: 25.6, hi: 26.7, prio: 4 },
-    { id: 'cmb', pos: new THREE.Vector3(0, 0, -R), text: t('zoom.lbl.cmb'), sub: t('zoom.lbl.cmbSub'), cls: 'big gold centre', lo: 25.7, hi: 26.7, prio: 1, dyn: (out, dir) => { out.copy(dir).multiplyScalar(-R * 0.985); } },
+    { id: 'cmb', pos: new THREE.Vector3(0, 0, -R), text: t('zoom.lbl.cmb'), sub: t('zoom.lbl.cmbSub'), cls: 'big gold centre', lo: 25.7, hi: 26.7, prio: 1, dyn: (out, dir) => {
+      // straight ahead on the sphere, lifted ~12° so it never collides with the Milky Way marker at the centre
+      side.set(0, 0, 1).cross(dir).normalize(); up.crossVectors(dir, side).normalize();
+      out.copy(dir).multiplyScalar(-0.978).addScaledVector(up, 0.208).multiplyScalar(R * 0.985);
+    } },
   ];
   L.labels = labels;
   const infos: ObjectInfo[] = [
@@ -128,7 +133,7 @@ export function buildUniverseLayer(b: BuildCtx): LayerBuild {
 
   L.update = (_dt, logD) => {
     const k = L.opacity;
-    cmb.setAlpha(k * (0.22 + 0.78 * smoothstep(25.2, 26.4, logD)));
+    cmb.setAlpha(k * (0.18 + 0.72 * smoothstep(25.2, 26.4, logD)));
   };
   return { layer: L, infos };
 }

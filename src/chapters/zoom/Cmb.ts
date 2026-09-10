@@ -31,7 +31,7 @@ void main() {
   vec3 c3 = vec3(0.93, 0.50, 0.12);
   vec3 c4 = vec3(0.45, 0.07, 0.03);
   vec3 col = t < 0.25 ? mix(c0, c1, t / 0.25) : t < 0.5 ? mix(c1, c2, (t - 0.25) / 0.25) : t < 0.75 ? mix(c2, c3, (t - 0.5) / 0.25) : mix(c3, c4, (t - 0.75) / 0.25);
-  col *= 0.78;
+  col = mix(col, vec3(dot(col, vec3(0.33))), 0.18) * 0.6;
   gl_FragColor = vec4(col * uAlpha, uAlpha);
 }`;
 

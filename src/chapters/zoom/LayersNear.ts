@@ -52,6 +52,17 @@ const bodyBlurb = (b: Body): string => `<p>${pick(b.blurb)}</p>${b.facts[0] ? `<
 const MOON_VERT = /* glsl */ `
 varying vec2 vUv; varying vec3 vN;
 void main() { vUv = uv; vN = normalize(mat3(modelMatrix) * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
+const CLOUD_FRAG = /* glsl */ `
+uniform sampler2D uClouds; uniform vec3 uSunDir; uniform float uFade;
+varying vec2 vUv; varying vec3 vNormalW; varying vec3 vPosW;
+void main() {
+  vec3 n = normalize(vNormalW);
+  float ndl = dot(n, uSunDir);
+  float a = texture2D(uClouds, vUv).r;
+  float light = 0.08 + 0.95 * max(ndl, 0.0);
+  gl_FragColor = vec4(vec3(light), a * 0.85 * uFade);
+  #include <colorspace_fragment>
+}`;
 const MOON_FRAG = /* glsl */ `
 uniform sampler2D uMap; uniform vec3 uSun;
 varying vec2 vUv; varying vec3 vN;
@@ -72,6 +83,18 @@ export function buildEarthLayer(b: BuildCtx): LayerBuild {
   earth.group.rotation.x = Math.PI / 2;                       // mesh +Y (north pole) → world +Z (celestial north)
   earth.setSunDirection(b.sunDir);
   S.add(earth.group);
+  // own cloud material: the 1024 px cloud map looks blocky when the globe fills the view → fade the clouds in from logD 7.35
+  let cloudFade: { value: number } | undefined;
+  if (earth.clouds) {
+    const old = earth.clouds.material as THREE.ShaderMaterial;
+    const cm = new THREE.ShaderMaterial({
+      uniforms: { uClouds: { value: old.uniforms.uClouds.value }, uSunDir: { value: b.sunDir.clone() }, uFade: { value: 0 } },
+      vertexShader: old.vertexShader, fragmentShader: CLOUD_FRAG, transparent: true, depthWrite: false,
+    });
+    earth.clouds.material = cm;                               // createEarth() assigns the texture to `clouds.material` once loaded
+    old.dispose();
+    cloudFade = cm.uniforms.uFade;
+  }
 
   // Moon: real geocentric position (km → units), real size, near side facing Earth
   const mp = vec(moonGeocentric(b.jd), 1e-3, new THREE.Vector3());
@@ -94,6 +117,12 @@ export function buildEarthLayer(b: BuildCtx): LayerBuild {
   const moonOrbit = createRings([{ radius: mp.length(), quaternion: quatFromNormal(moonNormal), dashed: true }], c.text2, 0.16, 180);
   S.add(iss, gps, geo, moonOrbit);
   for (const m of [iss, gps, geo, moonOrbit]) { const base = m.material.opacity; L.fades.push((k) => { m.material.opacity = base * k; }); }
+  // pixel-floor markers so Earth and Moon stay visible once the globes shrink to a pixel
+  const dots = createCloud({
+    positions: new Float32Array([0, 0, 0, mp.x, mp.y, mp.z]), sizes: new Float32Array([RE * 2, BODY_BY_ID.moon.radiusKm / 500]),
+    colors: new Float32Array([...mixRgb(c.cyan, [1, 1, 1], 0.55), ...mixRgb(c.text2, [1, 1, 1], 0.5)]), minPx: new Float32Array([5, 3.5]), maxPx: 60, alpha: 0.9,
+  });
+  S.add(dots.points); L.proj.push(dots.setProj);
 
   const ringPoint = (r: number, q: THREE.Quaternion | undefined, a: number) => { const v = new THREE.Vector3(Math.cos(a) * r, Math.sin(a) * r, 0); if (q) v.applyQuaternion(q); return v; };
   const labels: LabelSpec[] = [
@@ -106,10 +135,12 @@ export function buildEarthLayer(b: BuildCtx): LayerBuild {
   L.labels = labels;
 
   let spin = 0;
-  L.update = (dt) => {
+  L.update = (dt, logD) => {
     spin += dt;
     if (spin > 0.5) { spin = 0; earth.setRotation(gmst(nowJD())); }
     earth.update(dt);
+    if (cloudFade) cloudFade.value = smoothstep(7.35, 7.85, logD);
+    dots.setAlpha(L.opacity * smoothstep(8.0, 8.5, logD));
   };
   earth.setRotation(gmst(nowJD()));
 
@@ -152,14 +183,14 @@ export function buildSolarLayer(b: BuildCtx): LayerBuild {
   const pos = new Float32Array(n * 3), sizes = new Float32Array(n), cols = new Float32Array(n * 3), mins = new Float32Array(n);
   const labels: LabelSpec[] = [];
   const setPt = (i: number, p: THREE.Vector3, dia: number, col: RGB, min: number) => { pos[i * 3] = p.x; pos[i * 3 + 1] = p.y; pos[i * 3 + 2] = p.z; sizes[i] = dia; cols[i * 3] = col[0]; cols[i * 3 + 1] = col[1]; cols[i * 3 + 2] = col[2]; mins[i] = min; };
-  setPt(0, new THREE.Vector3(), SUN_RADIUS_KM * 2 / 1e6, mixRgb(c.gold, [1, 1, 1], 0.3), 7);
+  setPt(0, new THREE.Vector3(), SUN_RADIUS_KM * 2 / 1e6, mixRgb(c.gold, [1, 1, 1], 0.3), 10);
   const infos: ObjectInfo[] = [];
   const distNow = (id: BodyId) => () => worldOf(id).length() * 1e9;
   ids.forEach((id, k) => {
     const body = BODY_BY_ID[id];
     const p = id === 'moon' ? helioU('earth').add(vec(moonGeocentric(jd), 1e-6, tmp)) : helioU(id);
     const col = body.kind === 'probe' ? [1, 1, 1] as RGB : mixRgb(hexRgb(body.color), [1, 1, 1], 0.25);
-    setPt(k + 1, p, body.radiusKm * 2 / 1e6, col, body.kind === 'probe' ? 3.5 : body.kind === 'moon' ? 2 : body.kind === 'dwarf' ? 2.2 : 3);
+    setPt(k + 1, p, body.radiusKm * 2 / 1e6, col, body.kind === 'probe' ? 4 : body.kind === 'moon' ? 2.5 : body.kind === 'dwarf' ? 2.6 : 4);
     const d = p.clone().sub(earthH);
     const dist = d.length();
     const lo = id === 'earth' ? 9.55 : id === 'moon' ? 9 : Math.max(9, Math.log10(dist * 1e9) - 1.1);
